@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ミニムード</string>
+    <string name="no_moods">利用できません気分</string>
+    <string name="export">書き出す</string>
+    <string name="contact_us">お問い合わせ</string>
+    <string name="visit_website">当社のウェブサイトを訪問</string>
+    <string name="query">ミニムードクエリ</string>
+    <string name="contribute">助ける</string>
+    <string name="very_happy">非常に満足</string>
+    <string name="neutral">中性</string>
+    <string name="very_sad">とても悲しい</string>
+    <string name="sad">悲しい</string>
+    <string name="happy">ハッピー</string>
+    <string name="settings">設定</string>
+</resources>

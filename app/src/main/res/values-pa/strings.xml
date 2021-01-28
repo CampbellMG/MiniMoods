@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ਮਿੰਨੀ ਮੂਡਸ</string>
+    <string name="no_moods">ਕੋਈ ਮੂਡ ਉਪਲੱਬਧ</string>
+    <string name="export">ਨਿਰਯਾਤ</string>
+    <string name="contact_us">ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
+    <string name="visit_website">ਸਾਡੀ ਵੈਬਸਾਈਟ \'ਤੇ ਜਾਓ</string>
+    <string name="query">ਮਿੰਨੀ ਮੂਡਸ ਕਿਊਰੀ</string>
+    <string name="contribute">ਯੋਗਦਾਨ</string>
+    <string name="very_happy">ਬਹੁਤ ਖੁਸ਼</string>
+    <string name="neutral">ਨਿਰਪੱਖ</string>
+    <string name="very_sad">ਬਹੁਤ ਓਦਾਸ</string>
+    <string name="sad">ਅਫ਼ਸੋਸ</string>
+    <string name="happy">ਧੰਨ</string>
+    <string name="settings">ਸੈਟਿੰਗ</string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">मिनी मूड</string>
+    <string name="no_moods">कोई मूड उपलब्ध</string>
+    <string name="export">निर्यात</string>
+    <string name="contact_us">संपर्क करें</string>
+    <string name="visit_website">हमारी वेबसाइट पर पधारें</string>
+    <string name="query">मिनी मूड क्वेरी</string>
+    <string name="contribute">योगदान</string>
+    <string name="very_happy">बहुत खुश</string>
+    <string name="neutral">तटस्थ</string>
+    <string name="very_sad">बहुत दुख की बात है</string>
+    <string name="sad">उदास</string>
+    <string name="happy">खुश</string>
+    <string name="settings">समायोजन</string>
+</resources>

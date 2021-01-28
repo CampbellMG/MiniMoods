@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#555354</color>
+    <color name="colorBackground">#FBFBFB</color>
+    <color name="colorCard">#FFFFFF</color>
+    <color name="colorCardBorder">#EAEAEA</color>
+    <color name="colorButton">#F5F6F8</color>
+    <color name="colorButtonPressed">#F1F1F1</color>
+    <color name="colorIcon">#555354</color>
+    <color name="colorDisabled">#C2C5CB</color>
+    <color name="colorMood1">#9CCC65</color>
+    <color name="colorMood2">#D4E157</color>
+    <color name="colorMood3">#FFCA28</color>
+    <color name="colorMood4">#FFA726</color>
+    <color name="colorMood5">#FF7043</color>
+</resources>

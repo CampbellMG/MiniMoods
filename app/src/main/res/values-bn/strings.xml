@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">মিনি মুড</string>
+    <string name="no_moods">কোন মুড প্রাপ্তিসাধ্য</string>
+    <string name="export">রপ্তানি</string>
+    <string name="contact_us">যোগাযোগ করুন</string>
+    <string name="visit_website">আমাদের ওয়েবসাইট দেখার জন্য</string>
+    <string name="query">মিনি মুড ক্যোয়ারী</string>
+    <string name="contribute">অবদান</string>
+    <string name="very_happy">খুব খুশি</string>
+    <string name="neutral">নিরপেক্ষ</string>
+    <string name="very_sad">খুব দুঃখ জনক</string>
+    <string name="sad">দু: খিত</string>
+    <string name="happy">খুশি</string>
+    <string name="settings">সেটিংস</string>
+</resources>

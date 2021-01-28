@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.cmgcode.minimoods">
+
+    <application
+            android:name=".MiniMoodsApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            android:fullBackupContent="@xml/backup_descriptor">
+
+        <meta-data
+                android:name="io.sentry.dsn"
+                android:value="${SENTRY_DSN}"/>
+
+        <activity android:name=".moods.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+                android:name=".about.AboutActivity"
+                android:theme="@style/AboutTheme"/>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.cmgcode.minimoods"
+                android:grantUriPermissions="true"
+                android:exported="false">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/filepaths"/>
+        </provider>
+
+        <receiver
+                android:name=".widget.MiniMoodsWidgetProvider"
+                android:icon="@drawable/ic_launcher_foreground"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_info"/>
+        </receiver>
+
+    </application>
+
+</manifest>

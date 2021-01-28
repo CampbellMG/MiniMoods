@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mini Moods</string>
+    <string name="no_moods">Há modos disponíveis</string>
+    <string name="export">Exportar</string>
+    <string name="contact_us">Contate-Nos</string>
+    <string name="visit_website">Visite o nosso site</string>
+    <string name="query">Mini Moods consulta</string>
+    <string name="contribute">Contribuir</string>
+    <string name="very_happy">Muito feliz</string>
+    <string name="neutral">Neutro</string>
+    <string name="very_sad">Muito triste</string>
+    <string name="sad">Triste</string>
+    <string name="happy">Feliz</string>
+    <string name="settings">Configurações</string>
+</resources>

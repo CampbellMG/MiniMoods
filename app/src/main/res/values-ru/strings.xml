@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Мини настроения</string>
+    <string name="no_moods">Нет настроения доступны</string>
+    <string name="export">экспорт</string>
+    <string name="contact_us">Связаться с нами</string>
+    <string name="visit_website">Посетите наш сайт</string>
+    <string name="query">Мини Настроения Запрос</string>
+    <string name="contribute">Способствовать</string>
+    <string name="very_happy">Очень счастлив</string>
+    <string name="neutral">нейтральный</string>
+    <string name="very_sad">Очень грустный</string>
+    <string name="sad">Грустный</string>
+    <string name="happy">Счастливый</string>
+    <string name="settings">настройки</string>
+</resources>

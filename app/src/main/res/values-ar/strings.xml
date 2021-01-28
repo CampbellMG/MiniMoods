@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">مصغرة المزاج</string>
+    <string name="no_moods">لا المزاجية المتاحة</string>
+    <string name="export">تصدير</string>
+    <string name="contact_us">اتصل بنا</string>
+    <string name="visit_website">زيارة موقعنا على الانترنت</string>
+    <string name="query">المزاج سؤال البسيطة</string>
+    <string name="contribute">تساهم</string>
+    <string name="very_happy">سعيد جدا</string>
+    <string name="neutral">محايد</string>
+    <string name="very_sad">حزين جدا</string>
+    <string name="sad">حزين</string>
+    <string name="happy">سعيدة</string>
+    <string name="settings">الإعدادات</string>
+</resources>

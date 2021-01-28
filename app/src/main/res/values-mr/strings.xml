@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">मिनी मन: स्थिती</string>
+    <string name="no_moods">नाही मन: स्थिती उपलब्ध</string>
+    <string name="export">निर्यात</string>
+    <string name="contact_us">आम्हाला संपर्क करा</string>
+    <string name="visit_website">आमच्या वेबसाइटला भेट द्या</string>
+    <string name="query">मिनी मन: स्थिती क्वेरी</string>
+    <string name="contribute">योगदान</string>
+    <string name="very_happy">खूप आनंद</string>
+    <string name="neutral">तटस्थ</string>
+    <string name="very_sad">अतिशय दु: खी</string>
+    <string name="sad">दु: खी</string>
+    <string name="happy">खूप आनंद झाला</string>
+    <string name="settings">सेटिंग्ज</string>
+</resources>

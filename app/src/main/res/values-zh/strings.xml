@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">迷你情绪</string>
+    <string name="no_moods">没有可用的情绪</string>
+    <string name="export">出口</string>
+    <string name="contact_us">联系我们</string>
+    <string name="visit_website">访问我们的网站</string>
+    <string name="query">迷你情绪查询</string>
+    <string name="contribute">有助于</string>
+    <string name="very_happy">很高兴</string>
+    <string name="neutral">中性</string>
+    <string name="very_sad">很心痛</string>
+    <string name="sad">伤心</string>
+    <string name="happy">快乐</string>
+    <string name="settings">设置</string>
+</resources>

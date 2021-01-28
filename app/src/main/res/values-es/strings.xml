@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Los estados de ánimo Mini</string>
+    <string name="no_moods">No hay estados de ánimo disponibles</string>
+    <string name="export">Exportar</string>
+    <string name="contact_us">Contáctenos</string>
+    <string name="visit_website">Visite nuestro sitio web</string>
+    <string name="query">Los estados de ánimo de consulta Mini</string>
+    <string name="contribute">Contribuir</string>
+    <string name="very_happy">Muy feliz</string>
+    <string name="neutral">Neutral</string>
+    <string name="very_sad">Muy triste</string>
+    <string name="sad">Triste</string>
+    <string name="happy">Feliz</string>
+    <string name="settings">ajustes</string>
+</resources>

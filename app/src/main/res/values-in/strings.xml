@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mini Moods</string>
+    <string name="no_moods">Tidak ada suasana hati yang tersedia</string>
+    <string name="export">Ekspor</string>
+    <string name="contact_us">Hubungi kami</string>
+    <string name="visit_website">Kunjungi situs web kami</string>
+    <string name="query">Query Mini Moods</string>
+    <string name="contribute">Menyumbang</string>
+    <string name="very_happy">Sangat senang</string>
+    <string name="neutral">Netral</string>
+    <string name="very_sad">Sangat sedih</string>
+    <string name="sad">Sedih</string>
+    <string name="happy">Senang</string>
+    <string name="settings">pengaturan</string>
+</resources>
