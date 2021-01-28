@@ -36,5 +36,5 @@ Mini Moods is an ad-free, open-source, no-frills mood tracker that gives you ful
 
 # Contributing
 
-Feel free to [open an issue](https://github.com/CampbellMG/MiniMoods/issues/new) with any issues or suggestions for the
-app. If you'd like to contribute a change, feel free to open a pull request. 
+Feel free to [open an issue](https://github.com/CampbellMG/MiniMoods/issues/new) with any problems or suggestions for the
+app. If you'd like to contribute a change, go ahead and open a pull request. 
