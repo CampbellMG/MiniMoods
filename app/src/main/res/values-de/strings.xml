@@ -17,4 +17,8 @@
     <string name="crash_reports">Absturzberichte</string>
     <string name="send_crash_reports">Senden Absturzberichte</string>
     <string name="crash_report_prompt">Mini Moods stützt sich auf Informationen aus allen möglichen Ausgaben Sie die App verbessern erleben. Möchten Sie Hilfe von anonymen Absturz Statistiken zu senden?</string>
+    <string name="theme">Thema</string>
+    <string name="system_default">Systemfehler</string>
+    <string name="light">Licht</string>
+    <string name="dark">Dunkel</string>
 </resources>

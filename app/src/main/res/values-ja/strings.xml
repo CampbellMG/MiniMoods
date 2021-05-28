@@ -17,4 +17,8 @@
     <string name="crash_reports">クラッシュレポート</string>
     <string name="send_crash_reports">クラッシュレポートを送信</string>
     <string name="crash_report_prompt">ミニムードはアプリを改善するために経験するあらゆる問題からの情報に依存しています。あなたは匿名のクラッシュの統計情報を送信することにより、ヘルプをしたいですか？</string>
+    <string name="theme">テーマ</string>
+    <string name="system_default">システムのデフォルト</string>
+    <string name="light">光</string>
+    <string name="dark">闇</string>
 </resources>

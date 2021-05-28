@@ -17,4 +17,8 @@
     <string name="crash_reports">ਕਰੈਸ਼ ਰਿਪੋਰਟ</string>
     <string name="send_crash_reports">ਕਰੈਸ਼ ਰਿਪੋਰਟ ਭੇਜੋ</string>
     <string name="crash_report_prompt">ਮਿੰਨੀ ਮੂਡਸ ਤੁਹਾਨੂੰ ਐਪਲੀਕੇਸ਼ ਨੂੰ ਸੁਧਾਰ ਕਰਨ ਲਈ ਦਾ ਅਨੁਭਵ ਕਿਸੇ ਵੀ ਮੁੱਦੇ ਦੀ ਜਾਣਕਾਰੀ \'ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ. ਤੁਹਾਨੂੰ ਅਗਿਆਤ ਕਰੈਸ਼ ਅੰਕੜੇ ਨੂੰ ਭੇਜ ਕੇ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="theme">ਥੀਮ</string>
+    <string name="system_default">ਸਿਸਟਮ ਡਿਫਾਲਟ</string>
+    <string name="light">ਚਾਨਣ</string>
+    <string name="dark">ਹਨੇਰ</string>
 </resources>

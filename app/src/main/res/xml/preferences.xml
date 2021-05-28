@@ -8,4 +8,14 @@
             android:summary="@string/crash_report_prompt"
             app:iconSpaceReserved="false"/>
 
+    <ListPreference
+            android:key="@string/key_theme"
+            android:title="@string/theme"
+            app:useSimpleSummaryProvider="true"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:defaultValue="@string/system"
+            app:iconSpaceReserved="false"/>
+
+
 </PreferenceScreen>

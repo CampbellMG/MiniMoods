@@ -17,4 +17,8 @@
     <string name="crash_reports">क्रैश रिपोर्ट</string>
     <string name="send_crash_reports">क्रैश रिपोर्ट भेजें</string>
     <string name="crash_report_prompt">मिनी मूड आप अनुप्रयोग में सुधार करने का अनुभव किसी भी मुद्दे से जानकारी पर निर्भर करता है। आप अज्ञात क्रैश आँकड़ों को भेज कर मदद करना चाहते हैं?</string>
+    <string name="theme">विषय</string>
+    <string name="system_default">प्रणालीगत चूक</string>
+    <string name="light">रोशनी</string>
+    <string name="dark">अंधेरा</string>
 </resources>

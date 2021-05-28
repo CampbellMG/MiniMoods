@@ -17,4 +17,8 @@
     <string name="crash_reports">Los informes de error</string>
     <string name="send_crash_reports">Enviar informes de fallos</string>
     <string name="crash_report_prompt">Los estados de ánimo Mini se basa en información de cualquier problema que la experiencia para mejorar la aplicación. ¿Quieres ayuda mediante el envío de estadísticas de error anónimos?</string>
+    <string name="theme">Tema</string>
+    <string name="system_default">Sistema por defecto</string>
+    <string name="light">Luz</string>
+    <string name="dark">Oscuro</string>
 </resources>

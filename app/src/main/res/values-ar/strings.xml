@@ -17,4 +17,8 @@
     <string name="crash_reports">تقارير الأعطال</string>
     <string name="send_crash_reports">إرسال تقارير الأعطال</string>
     <string name="crash_report_prompt">تعتمد المزاج البسيطة على المعلومات من أي مشاكل واجهت لتحسين التطبيق. هل تريد المساعدة عن طريق إرسال إحصائيات تحطم مجهولة؟</string>
+    <string name="theme">سمة</string>
+    <string name="system_default">النظام الافتراضي</string>
+    <string name="light">ضوء</string>
+    <string name="dark">داكن</string>
 </resources>

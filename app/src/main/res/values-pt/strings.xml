@@ -17,4 +17,8 @@
     <string name="crash_reports">Os relatórios de falhas</string>
     <string name="send_crash_reports">Enviar relatórios de falhas</string>
     <string name="crash_report_prompt">Mini Moods se baseia em informações de quaisquer problemas que você experiência para melhorar o aplicativo. Você quer ajuda enviando estatísticas de falhas anónimos?</string>
+    <string name="theme">Tema</string>
+    <string name="system_default">Sistema padrão</string>
+    <string name="light">Luz</string>
+    <string name="dark">Escuro</string>
 </resources>

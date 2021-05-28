@@ -17,4 +17,8 @@
     <string name="crash_reports">ক্র্যাশ প্রতিবেদন</string>
     <string name="send_crash_reports">ক্র্যাশ প্রতিবেদন পাঠান</string>
     <string name="crash_report_prompt">মিনি মুড আপনি অ্যাপ উন্নত করতে অনুভব কোনো সমস্যা থেকে তথ্য উপর নির্ভর করে। আপনি কি বেনামী ক্র্যাশ পরিসংখ্যান পাঠিয়ে সাহায্যের করতে চান?</string>
+    <string name="theme">বিষয়</string>
+    <string name="system_default">সিস্টেমের ডিফল্ট</string>
+    <string name="light">আলো</string>
+    <string name="dark">অন্ধকার</string>
 </resources>

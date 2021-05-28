@@ -17,7 +17,25 @@
     <string name="crash_reports">Crash reports</string>
     <string name="send_crash_reports">Send crash reports</string>
     <string name="crash_report_prompt">Mini Moods relies on information from any issues you experience to improve the app. Do you want to help by sending anonymous crash statistics?</string>
+    <string name="theme">Theme</string>
+    <string name="system_default">System Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 
+    <string name="system" translatable="false">system</string>
     <string name="version" translatable="false">%s (%s)</string>
     <string name="key_should_log_crashes" translatable="false">key_should_log_crashes</string>
+    <string name="key_theme" translatable="false">key_theme</string>
+
+    <string-array name="theme_entries">
+        <item>@string/system_default</item>
+        <item>@string/light</item>
+        <item>@string/dark</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>@string/system</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
 </resources>

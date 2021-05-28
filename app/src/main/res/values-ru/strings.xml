@@ -17,4 +17,8 @@
     <string name="crash_reports">Краш отчеты</string>
     <string name="send_crash_reports">Отправить отчеты о сбоях</string>
     <string name="crash_report_prompt">Mini Настроение опирается на информацию из любых вопросов, которые вы испытываете, чтобы улучшить приложение. Вы хотите помочь, отправив анонимную статистику ДТП?</string>
+    <string name="theme">Тема</string>
+    <string name="system_default">Системные установки по умолчанию</string>
+    <string name="light">Свет</string>
+    <string name="dark">Темный</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.content.FileProvider
+import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import com.applandeo.materialcalendarview.CalendarDay
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
@@ -20,6 +21,7 @@ import com.cmgcode.minimoods.databinding.ActivityMainBinding
 import com.cmgcode.minimoods.util.ChartConfiguration.addMoods
 import com.cmgcode.minimoods.util.ChartConfiguration.configure
 import com.cmgcode.minimoods.util.Constants.TAG_DATE_PICKER
+import com.cmgcode.minimoods.util.DarkModePreferenceWatcher
 import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.toCalendar
 import com.cmgcode.minimoods.util.Event
@@ -31,8 +33,12 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MoodViewModel by viewModelBuilder(module.moodViewModelFactory)
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel: MoodViewModel by viewModelBuilder(module.moodViewModelFactory)
+    private val darkModePreferenceWatcher by lazy {
+        DarkModePreferenceWatcher(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,16 @@ class MainActivity : AppCompatActivity() {
 
         initialiseView()
         watchData()
+
+        getDefaultSharedPreferences(this)
+            .registerOnSharedPreferenceChangeListener(darkModePreferenceWatcher)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        getDefaultSharedPreferences(this)
+            .unregisterOnSharedPreferenceChangeListener(darkModePreferenceWatcher)
     }
 
     private fun initialiseView() {
