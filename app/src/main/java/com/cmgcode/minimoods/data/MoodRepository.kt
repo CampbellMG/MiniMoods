@@ -5,7 +5,16 @@ import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.atStartOfDay
 import java.util.*
 
-class MoodRepository(private val moods: MoodDao): MoodData {
+class MoodRepository(
+    private val moods: MoodDao,
+    private val preferences: PreferenceDao
+) : MoodData {
+
+    override var shouldReportCrashes: Boolean?
+        get() = preferences.shouldReportCrashes
+        set(value) {
+            preferences.shouldReportCrashes = value
+        }
 
     override fun addMood(mood: Mood) {
         val startOfDate = Calendar.getInstance()

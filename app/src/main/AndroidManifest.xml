@@ -12,9 +12,7 @@
             android:theme="@style/AppTheme"
             android:fullBackupContent="@xml/backup_descriptor">
 
-        <meta-data
-                android:name="io.sentry.dsn"
-                android:value="${SENTRY_DSN}"/>
+        <meta-data android:name="io.sentry.auto-init" android:value="false" />
 
         <activity android:name=".moods.MainActivity">
             <intent-filter>

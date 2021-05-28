@@ -61,7 +61,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
             <com.google.android.material.card.MaterialCardView
                     android:id="@+id/website"
                     android:layout_width="match_parent"
@@ -89,6 +88,20 @@
                         android:layout_height="wrap_content"
                         android:text="@string/contribute"/>
             </com.google.android.material.card.MaterialCardView>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorCardBorder"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginVertical="16dp"/>
+
+            <fragment
+                    android:id="@+id/preference_fragment"
+                    android:name="com.cmgcode.minimoods.about.PreferenceFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"/>
 
         </LinearLayout>
 

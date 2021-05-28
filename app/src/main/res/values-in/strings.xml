@@ -12,4 +12,9 @@
     <string name="sad">Sedih</string>
     <string name="happy">Senang</string>
     <string name="settings">pengaturan</string>
+    <string name="yes">Iya</string>
+    <string name="no">Tidak</string>
+    <string name="crash_reports">laporan kerusakan</string>
+    <string name="send_crash_reports">Kirim laporan kerusakan</string>
+    <string name="crash_report_prompt">Mini Moods mengandalkan informasi dari masalah yang Anda alami untuk meningkatkan aplikasi. Apakah Anda ingin membantu dengan mengirimkan statistik kecelakaan anonim?</string>
 </resources>

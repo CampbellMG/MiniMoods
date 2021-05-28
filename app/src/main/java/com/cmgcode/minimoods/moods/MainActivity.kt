@@ -3,6 +3,7 @@ package com.cmgcode.minimoods.moods
 import android.appwidget.AppWidgetManager
 import android.content.ClipData
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
@@ -104,7 +105,11 @@ class MainActivity : AppCompatActivity() {
         val days = moods.map { mood ->
             CalendarDay(mood.date.toCalendar()).also { day ->
                 day.backgroundDrawable = getDrawable(this, R.drawable.calendar_event)
-                    ?.also { it.setTint(getColor(this, mood.getMoodColor())) }
+                    ?.also {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            it.setTint(getColor(this, mood.getMoodColor()))
+                        }
+                    }
             }
         }
 

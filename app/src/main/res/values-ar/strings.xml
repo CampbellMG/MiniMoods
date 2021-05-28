@@ -1,15 +1,20 @@
 <resources>
     <string name="app_name">مصغرة المزاج</string>
     <string name="no_moods">لا المزاجية المتاحة</string>
-    <string name="export">تصدير</string>
+    <string name="export">يصدر</string>
     <string name="contact_us">اتصل بنا</string>
     <string name="visit_website">زيارة موقعنا على الانترنت</string>
     <string name="query">المزاج سؤال البسيطة</string>
-    <string name="contribute">تساهم</string>
+    <string name="contribute">يساهم</string>
     <string name="very_happy">سعيد جدا</string>
-    <string name="neutral">محايد</string>
+    <string name="neutral">حيادي</string>
     <string name="very_sad">حزين جدا</string>
     <string name="sad">حزين</string>
     <string name="happy">سعيدة</string>
-    <string name="settings">الإعدادات</string>
+    <string name="settings">إعدادات</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="crash_reports">تقارير الأعطال</string>
+    <string name="send_crash_reports">إرسال تقارير الأعطال</string>
+    <string name="crash_report_prompt">تعتمد المزاج البسيطة على المعلومات من أي مشاكل واجهت لتحسين التطبيق. هل تريد المساعدة عن طريق إرسال إحصائيات تحطم مجهولة؟</string>
 </resources>

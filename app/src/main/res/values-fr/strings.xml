@@ -2,7 +2,7 @@
     <string name="app_name">Mini Moods</string>
     <string name="no_moods">Pas humeurs disponible</string>
     <string name="export">Exportation</string>
-    <string name="contact_us">Nous contacter</string>
+    <string name="contact_us">Contactez-nous</string>
     <string name="visit_website">Visitez notre site Internet</string>
     <string name="query">Mini Moods Recherche</string>
     <string name="contribute">Contribuer</string>
@@ -12,4 +12,9 @@
     <string name="sad">Triste</string>
     <string name="happy">Heureux</string>
     <string name="settings">Paramètres</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="crash_reports">rapports d\'erreur</string>
+    <string name="send_crash_reports">Envoyer rapports d\'erreur</string>
+    <string name="crash_report_prompt">Mini Moods repose sur des informations de tous les problèmes que vous rencontrez pour améliorer l\'application. Voulez-vous l\'aide en envoyant des statistiques de plantage anonymes?</string>
 </resources>

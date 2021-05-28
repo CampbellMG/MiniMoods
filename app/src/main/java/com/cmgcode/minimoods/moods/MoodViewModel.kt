@@ -9,6 +9,7 @@ import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.data.MoodData
 import com.cmgcode.minimoods.util.DateHelpers.isSameDay
+import com.cmgcode.minimoods.handlers.error.ErrorHandler
 import com.cmgcode.minimoods.util.Event
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -17,12 +18,14 @@ import java.util.*
 
 class MoodViewModel(
     private val repo: MoodData,
+    private val errorHandler: ErrorHandler,
     private val IODispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     val navigationEvent = MutableLiveData<Event<Class<*>>?>()
     val exportEvent = MutableLiveData<Event<String>?>()
     val selectedDate = MutableLiveData(Date())
+    val shouldReportCrashes = MutableLiveData(repo.shouldReportCrashes)
 
     val moods = switchMap(selectedDate) { repo.getMoodsForMonth(it) }
 
@@ -51,5 +54,12 @@ class MoodViewModel(
 
     fun openAbout() {
         navigationEvent.value = Event(AboutActivity::class.java)
+    }
+
+    fun updateCrashReportingPreference(shouldReportCrashes: Boolean?) {
+        this.shouldReportCrashes.value = shouldReportCrashes
+        repo.shouldReportCrashes = shouldReportCrashes
+
+        errorHandler.updateCrashReportingPreference(shouldReportCrashes ?: false)
     }
 }

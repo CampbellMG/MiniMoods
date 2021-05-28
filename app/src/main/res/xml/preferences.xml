@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBoxPreference
+            android:key="@string/key_should_log_crashes"
+            android:title="@string/send_crash_reports"
+            android:summary="@string/crash_report_prompt"
+            app:iconSpaceReserved="false"/>
+
+</PreferenceScreen>

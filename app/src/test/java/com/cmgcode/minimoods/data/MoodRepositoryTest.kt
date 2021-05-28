@@ -1,5 +1,7 @@
 package com.cmgcode.minimoods.data
 
+import com.google.common.truth.Truth.assertThat
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
@@ -8,12 +10,15 @@ import java.util.*
 
 class MoodRepositoryTest {
     private lateinit var moodData: MoodDao
+    private lateinit var preferenceDao: PreferenceDao
     private lateinit var repository: MoodRepository
 
     @Before
     fun setUp() {
         moodData = mockk(relaxed = true)
-        repository = MoodRepository(moodData)
+        preferenceDao = mockk(relaxed = true)
+
+        repository = MoodRepository(moodData, preferenceDao)
     }
 
     @Test
@@ -63,5 +68,16 @@ class MoodRepositoryTest {
             .time
 
         verify { moodData.addMood(Mood(time, 1)) }
+    }
+
+    @Test
+    fun when_EditingOrRetrievingShouldLog_Expect_VariableMatchesDao() {
+        every { preferenceDao.shouldReportCrashes } returns true
+
+        assertThat(repository.shouldReportCrashes).isTrue()
+
+        repository.shouldReportCrashes = false
+
+        verify { preferenceDao.shouldReportCrashes = false }
     }
 }

@@ -12,6 +12,7 @@ import java.util.*
 
 class MockRepository : MoodData {
     val moods = FilteredLiveMoods()
+    override var shouldReportCrashes: Boolean? = null
 
     override fun addMood(mood: Mood) {
         moods.value = moods.value
@@ -21,6 +22,7 @@ class MockRepository : MoodData {
                 add(mood)
             }
     }
+
     override fun getAllMoods(): List<Mood> {
         return moods.value.orEmpty()
     }

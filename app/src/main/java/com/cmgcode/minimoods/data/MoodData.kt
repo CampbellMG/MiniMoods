@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import java.util.*
 
 interface MoodData {
+    var shouldReportCrashes: Boolean?
+
     fun addMood(mood: Mood)
 
     fun getAllMoods(): List<Mood>

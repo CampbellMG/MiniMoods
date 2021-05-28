@@ -10,6 +10,11 @@
     <string name="neutral">Neutral</string>
     <string name="very_sad">Muy triste</string>
     <string name="sad">Triste</string>
-    <string name="happy">Feliz</string>
-    <string name="settings">ajustes</string>
+    <string name="happy">Contento</string>
+    <string name="settings">Ajustes</string>
+    <string name="yes">sí</string>
+    <string name="no">No</string>
+    <string name="crash_reports">Los informes de error</string>
+    <string name="send_crash_reports">Enviar informes de fallos</string>
+    <string name="crash_report_prompt">Los estados de ánimo Mini se basa en información de cualquier problema que la experiencia para mejorar la aplicación. ¿Quieres ayuda mediante el envío de estadísticas de error anónimos?</string>
 </resources>

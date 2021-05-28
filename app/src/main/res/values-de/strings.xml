@@ -12,4 +12,9 @@
     <string name="sad">Traurig</string>
     <string name="happy">glücklich</string>
     <string name="settings">die Einstellungen</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="crash_reports">Absturzberichte</string>
+    <string name="send_crash_reports">Senden Absturzberichte</string>
+    <string name="crash_report_prompt">Mini Moods stützt sich auf Informationen aus allen möglichen Ausgaben Sie die App verbessern erleben. Möchten Sie Hilfe von anonymen Absturz Statistiken zu senden?</string>
 </resources>

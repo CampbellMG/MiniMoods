@@ -5,11 +5,16 @@
     <string name="contact_us">联系我们</string>
     <string name="visit_website">访问我们的网站</string>
     <string name="query">迷你情绪查询</string>
-    <string name="contribute">有助于</string>
+    <string name="contribute">贡献</string>
     <string name="very_happy">很高兴</string>
-    <string name="neutral">中性</string>
+    <string name="neutral">中性的</string>
     <string name="very_sad">很心痛</string>
     <string name="sad">伤心</string>
-    <string name="happy">快乐</string>
+    <string name="happy">快乐的</string>
     <string name="settings">设置</string>
+    <string name="yes">是的</string>
+    <string name="no">不</string>
+    <string name="crash_reports">崩溃报告</string>
+    <string name="send_crash_reports">发送崩溃报告</string>
+    <string name="crash_report_prompt">迷你情绪依赖于从你体验，提高应用程序的任何问题的信息。你想匿名发送崩溃的统计数据？</string>
 </resources>

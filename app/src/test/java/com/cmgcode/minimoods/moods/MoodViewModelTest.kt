@@ -3,6 +3,7 @@ package com.cmgcode.minimoods.moods
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
+import com.cmgcode.minimoods.mock.MockErrorHandler
 import com.cmgcode.minimoods.mock.MockRepository
 import com.cmgcode.minimoods.util.MainCoroutineRule
 import com.cmgcode.minimoods.util.getTestValue
@@ -23,12 +24,14 @@ class MoodViewModelTest {
     @get:Rule var instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var repository: MockRepository
+    private lateinit var errorHandler: MockErrorHandler
     private lateinit var viewModel: MoodViewModel
 
     @Before
     fun setUp() {
         repository = MockRepository()
-        viewModel = MoodViewModel(repository, Dispatchers.Main)
+        errorHandler = MockErrorHandler()
+        viewModel = MoodViewModel(repository, errorHandler, Dispatchers.Main)
     }
 
     @Test
@@ -107,5 +110,30 @@ class MoodViewModelTest {
 
         assertThat(viewModel.navigationEvent.getTestValue()?.unhandledData)
             .isEqualTo(AboutActivity::class.java)
+    }
+
+    @Test
+    fun when_SettingShouldLog_Expect_RepoToUpdate() {
+        viewModel.updateCrashReportingPreference(true)
+
+        assertThat(repository.shouldReportCrashes).isTrue()
+    }
+
+    @Test
+    fun when_SettingShouldLog_Expect_ErrorHandlerToUpdate() {
+        viewModel.updateCrashReportingPreference(false)
+
+        assertThat(errorHandler.shouldLog).isFalse()
+    }
+
+    @Test
+    fun when_SettingShouldLogToNull_Expect_ErrorHandlerToNotLog() {
+        viewModel.updateCrashReportingPreference(true)
+
+        assertThat(errorHandler.shouldLog).isTrue()
+
+        viewModel.updateCrashReportingPreference(null)
+
+        assertThat(errorHandler.shouldLog).isFalse()
     }
 }

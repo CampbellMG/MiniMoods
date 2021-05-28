@@ -2,7 +2,7 @@
     <string name="app_name">Мини настроения</string>
     <string name="no_moods">Нет настроения доступны</string>
     <string name="export">экспорт</string>
-    <string name="contact_us">Связаться с нами</string>
+    <string name="contact_us">Свяжитесь с нами</string>
     <string name="visit_website">Посетите наш сайт</string>
     <string name="query">Мини Настроения Запрос</string>
     <string name="contribute">Способствовать</string>
@@ -11,5 +11,10 @@
     <string name="very_sad">Очень грустный</string>
     <string name="sad">Грустный</string>
     <string name="happy">Счастливый</string>
-    <string name="settings">настройки</string>
+    <string name="settings">Настройки</string>
+    <string name="yes">да</string>
+    <string name="no">Нет</string>
+    <string name="crash_reports">Краш отчеты</string>
+    <string name="send_crash_reports">Отправить отчеты о сбоях</string>
+    <string name="crash_report_prompt">Mini Настроение опирается на информацию из любых вопросов, которые вы испытываете, чтобы улучшить приложение. Вы хотите помочь, отправив анонимную статистику ДТП?</string>
 </resources>
