@@ -14,6 +14,7 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.cmgcode.minimoods.MiniMoodsApplication
 import com.cmgcode.minimoods.R
+import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.databinding.ActivityMainBinding
 import com.cmgcode.minimoods.util.ChartConfiguration.addMoods
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialiseView() {
+        binding.settings.setOnClickListener { openAbout() }
         binding.date.setOnClickListener { showDatePicker() }
 
         configureCalendar()
@@ -67,7 +69,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.selectedDate.observe(this) { initialiseView() }
         viewModel.exportEvent.observe(this) { exportMoodFile(it) }
         viewModel.currentMood.observe(this) { updateWidget() }
-        viewModel.navigationEvent.observe(this) { navigate(it) }
     }
 
     private fun showDatePicker() {
@@ -152,9 +153,7 @@ class MainActivity : AppCompatActivity() {
         sendBroadcast(intent)
     }
 
-    private fun navigate(event: Event<Class<*>>?) {
-        val destination = event?.unhandledData ?: return
-
-        startActivity(Intent(this, destination))
+    private fun openAbout() {
+        startActivity(Intent(this, AboutActivity::class.java))
     }
 }

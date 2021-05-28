@@ -105,14 +105,6 @@ class MoodViewModelTest {
     }
 
     @Test
-    fun when_OpeningAbout_Expect_AboutNavigationEvent() {
-        viewModel.openAbout()
-
-        assertThat(viewModel.navigationEvent.getTestValue()?.unhandledData)
-            .isEqualTo(AboutActivity::class.java)
-    }
-
-    @Test
     fun when_SettingShouldLog_Expect_RepoToUpdate() {
         viewModel.updateCrashReportingPreference(true)
 

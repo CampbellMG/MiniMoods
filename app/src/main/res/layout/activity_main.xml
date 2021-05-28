@@ -247,6 +247,7 @@
                             android:contentDescription="@string/export"/>
 
                     <ImageButton
+                            android:id="@+id/settings"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -256,7 +257,6 @@
                             android:scaleType="centerInside"
                             app:srcCompat="@drawable/ic_settings"
                             android:tint="@color/colorIcon"
-                            android:onClick="@{() -> viewModel.openAbout()}"
                             android:contentDescription="@string/settings"/>
 
                 </LinearLayout>

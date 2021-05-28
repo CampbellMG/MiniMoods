@@ -22,7 +22,6 @@ class MoodViewModel(
     private val IODispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    val navigationEvent = MutableLiveData<Event<Class<*>>?>()
     val exportEvent = MutableLiveData<Event<String>?>()
     val selectedDate = MutableLiveData(Date())
     val shouldReportCrashes = MutableLiveData(repo.shouldReportCrashes)
@@ -50,10 +49,6 @@ class MoodViewModel(
             val data = moods.joinToString("\n") { "${it.date},${it.mood}" }
             viewModelScope.launch(Dispatchers.Main) { exportEvent.value = Event(data) }
         }
-    }
-
-    fun openAbout() {
-        navigationEvent.value = Event(AboutActivity::class.java)
     }
 
     fun updateCrashReportingPreference(shouldReportCrashes: Boolean?) {
