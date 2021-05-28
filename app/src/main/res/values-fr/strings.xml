@@ -14,7 +14,6 @@
     <string name="settings">Paramètres</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
-    <string name="crash_reports">rapports d\'erreur</string>
     <string name="send_crash_reports">Envoyer rapports d\'erreur</string>
     <string name="crash_report_prompt">Mini Moods repose sur des informations de tous les problèmes que vous rencontrez pour améliorer l\'application. Voulez-vous l\'aide en envoyant des statistiques de plantage anonymes?</string>
     <string name="theme">Thème</string>

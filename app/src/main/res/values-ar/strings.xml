@@ -14,7 +14,6 @@
     <string name="settings">إعدادات</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
-    <string name="crash_reports">تقارير الأعطال</string>
     <string name="send_crash_reports">إرسال تقارير الأعطال</string>
     <string name="crash_report_prompt">تعتمد المزاج البسيطة على المعلومات من أي مشاكل واجهت لتحسين التطبيق. هل تريد المساعدة عن طريق إرسال إحصائيات تحطم مجهولة؟</string>
     <string name="theme">سمة</string>

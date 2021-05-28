@@ -14,7 +14,6 @@
     <string name="settings">设置</string>
     <string name="yes">是的</string>
     <string name="no">不</string>
-    <string name="crash_reports">崩溃报告</string>
     <string name="send_crash_reports">发送崩溃报告</string>
     <string name="crash_report_prompt">迷你情绪依赖于从你体验，提高应用程序的任何问题的信息。你想匿名发送崩溃的统计数据？</string>
     <string name="theme">主题</string>

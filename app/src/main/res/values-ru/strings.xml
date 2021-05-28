@@ -14,7 +14,6 @@
     <string name="settings">Настройки</string>
     <string name="yes">да</string>
     <string name="no">Нет</string>
-    <string name="crash_reports">Краш отчеты</string>
     <string name="send_crash_reports">Отправить отчеты о сбоях</string>
     <string name="crash_report_prompt">Mini Настроение опирается на информацию из любых вопросов, которые вы испытываете, чтобы улучшить приложение. Вы хотите помочь, отправив анонимную статистику ДТП?</string>
     <string name="theme">Тема</string>

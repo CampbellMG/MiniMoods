@@ -14,7 +14,6 @@
     <string name="settings">Settings</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="crash_reports">Crash reports</string>
     <string name="send_crash_reports">Send crash reports</string>
     <string name="crash_report_prompt">Mini Moods relies on information from any issues you experience to improve the app. Do you want to help by sending anonymous crash statistics?</string>
     <string name="theme">Theme</string>

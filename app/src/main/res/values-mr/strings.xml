@@ -14,7 +14,6 @@
     <string name="settings">सेटिंग्ज</string>
     <string name="yes">होय</string>
     <string name="no">नाही</string>
-    <string name="crash_reports">क्रॅश अहवाल</string>
     <string name="send_crash_reports">क्रॅश अहवाल पाठवा</string>
     <string name="crash_report_prompt">मिनी मन: स्थिती आपण अनुप्रयोग सुधारण्यासाठी अनुभव कोणत्याही समस्या माहिती अवलंबून आहे. आपण निनावी क्रॅश आकडेवारी पाठवून मदत करू इच्छिता?</string>
     <string name="theme">थीम</string>
