@@ -5,11 +5,10 @@ import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.data.MoodData
-import com.cmgcode.minimoods.util.DateHelpers.isSameDay
 import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import com.cmgcode.minimoods.util.DateHelpers.isSameDay
 import com.cmgcode.minimoods.util.Event
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

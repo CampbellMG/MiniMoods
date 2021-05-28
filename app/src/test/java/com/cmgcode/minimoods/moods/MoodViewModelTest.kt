@@ -1,7 +1,6 @@
 package com.cmgcode.minimoods.moods
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.mock.MockErrorHandler
 import com.cmgcode.minimoods.mock.MockRepository

@@ -8,16 +8,14 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat.getColor
-import com.cmgcode.minimoods.MiniMoodsApplication
+import com.cmgcode.minimoods.MiniMoodsApplication.Companion.module
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.util.Constants.ACTION_SET_MOOD
 import com.cmgcode.minimoods.util.Constants.RC_SET_MOOD
 
 class MiniMoodsWidgetProvider : AppWidgetProvider() {
 
-    private val viewModel by lazy {
-        MiniMoodsApplication.module.moodViewModel
-    }
+    private val viewModel by lazy { module.moodViewModelFactory.create() }
 
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)

@@ -64,15 +64,11 @@ class MainActivityTest {
 
     @Test
     fun when_NoCrashReportingPreference_Expect_Card() {
-        container.moodViewModel.updateCrashReportingPreference(null)
-
         onView(withText(R.string.crash_report_prompt)).check(matches(isDisplayed()))
     }
 
     @Test
     fun when_PressingYesToCrashReporting_Expect_ShouldLogSetToTrue() {
-        container.moodViewModel.updateCrashReportingPreference(null)
-
         onView(withText(R.string.crash_report_prompt)).check(matches(isDisplayed()))
 
         onView(withText(R.string.yes)).perform(click())
@@ -82,8 +78,6 @@ class MainActivityTest {
 
     @Test
     fun when_PressingNoToCrashReporting_Expect_ShouldLogSetToFalse() {
-        container.moodViewModel.updateCrashReportingPreference(null)
-
         onView(withText(R.string.crash_report_prompt)).check(matches(isDisplayed()))
 
         onView(withText(R.string.no)).perform(click())

@@ -12,7 +12,7 @@ import androidx.core.content.FileProvider
 import com.applandeo.materialcalendarview.CalendarDay
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.cmgcode.minimoods.MiniMoodsApplication
+import com.cmgcode.minimoods.MiniMoodsApplication.Companion.module
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
@@ -23,6 +23,7 @@ import com.cmgcode.minimoods.util.Constants.TAG_DATE_PICKER
 import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.toCalendar
 import com.cmgcode.minimoods.util.Event
+import com.cmgcode.minimoods.util.ViewModelFactory.Companion.viewModelBuilder
 import com.cmgcode.minimoods.widget.MiniMoodsWidgetProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.io.File
@@ -30,13 +31,11 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MoodViewModel
+    private val viewModel: MoodViewModel by viewModelBuilder(module.moodViewModelFactory)
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = MiniMoodsApplication.module.moodViewModel
 
         binding = ActivityMainBinding
             .inflate(layoutInflater)
