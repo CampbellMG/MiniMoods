@@ -1,6 +1,5 @@
 package com.cmgcode.minimoods.mock
 
-import com.cmgcode.minimoods.dependencies.AppModule
 import com.cmgcode.minimoods.moods.MoodViewModel
 import com.cmgcode.minimoods.util.ViewModelFactory
 import kotlinx.coroutines.Dispatchers

@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
@@ -13,7 +14,6 @@ import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import com.applandeo.materialcalendarview.CalendarDay
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.cmgcode.minimoods.MiniMoodsApplication.Companion.module
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
@@ -25,17 +25,19 @@ import com.cmgcode.minimoods.util.DarkModePreferenceWatcher
 import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.toCalendar
 import com.cmgcode.minimoods.util.Event
-import com.cmgcode.minimoods.util.ViewModelFactory.Companion.viewModelBuilder
 import com.cmgcode.minimoods.widget.MiniMoodsWidgetProvider
 import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: MoodViewModel by viewModelBuilder(module.moodViewModelFactory)
+    private val viewModel: MoodViewModel by viewModels()
     private val darkModePreferenceWatcher by lazy {
         DarkModePreferenceWatcher(this)
     }

@@ -4,19 +4,20 @@ import androidx.lifecycle.LiveData
 import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.atStartOfDay
 import java.util.*
+import javax.inject.Inject
 
-class MoodRepository(
+class MoodRepository @Inject constructor(
     private val moods: MoodDao,
     private val preferences: PreferenceDao
-) : MoodData {
+) {
 
-    override var shouldReportCrashes: Boolean?
+    var shouldReportCrashes: Boolean?
         get() = preferences.shouldReportCrashes
         set(value) {
             preferences.shouldReportCrashes = value
         }
 
-    override fun addMood(mood: Mood) {
+    fun addMood(mood: Mood) {
         val startOfDate = Calendar.getInstance()
             .apply { time = mood.date }
             .atStartOfDay()
@@ -27,11 +28,11 @@ class MoodRepository(
         moods.addMood(validatedMood)
     }
 
-    override fun getAllMoods(): List<Mood> {
+    fun getAllMoods(): List<Mood> {
         return moods.getAll()
     }
 
-    override fun getMoodsForMonth(date: Date): LiveData<List<Mood>> {
+    fun getMoodsForMonth(date: Date): LiveData<List<Mood>> {
         val monthRange = DateHelpers.getMonthRange(date)
         return moods.getMoodsBetween(monthRange.first, monthRange.second)
     }
