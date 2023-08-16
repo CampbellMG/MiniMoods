@@ -1,9 +1,9 @@
 package com.cmgcode.minimoods.moods
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.data.MoodData
@@ -13,7 +13,7 @@ import com.cmgcode.minimoods.util.Event
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Date
 
 class MoodViewModel(
     private val repo: MoodData,
@@ -25,9 +25,9 @@ class MoodViewModel(
     val selectedDate = MutableLiveData(Date())
     val shouldReportCrashes = MutableLiveData(repo.shouldReportCrashes)
 
-    val moods = switchMap(selectedDate) { repo.getMoodsForMonth(it) }
+    val moods = selectedDate.switchMap {  repo.getMoodsForMonth(it) }
 
-    val currentMood = map(moods) { monthMoods ->
+    val currentMood = moods.map { monthMoods ->
         monthMoods
             .firstOrNull { mood -> selectedDate.value?.let { mood.date.isSameDay(it) } == true }
             ?.mood

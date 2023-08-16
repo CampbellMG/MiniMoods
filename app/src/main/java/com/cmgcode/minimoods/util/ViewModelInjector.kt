@@ -20,7 +20,7 @@ interface ViewModelFactory<T> {
                 storeProducer = { viewModelStore },
                 factoryProducer = {
                     return@ViewModelLazy object : ViewModelProvider.Factory {
-                        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
                             @Suppress("UNCHECKED_CAST")
                             return factory.create() as T
                         }
