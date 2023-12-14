@@ -1,23 +1,23 @@
 <resources>
-    <string name="app_name">Мини настроения</string>
-    <string name="no_moods">Нет настроения доступны</string>
-    <string name="export">экспорт</string>
+    <string name="app_name">Mini Moods</string>
+    <string name="no_moods">Нет настроений</string>
+    <string name="export">Экспорт</string>
     <string name="contact_us">Свяжитесь с нами</string>
     <string name="visit_website">Посетите наш сайт</string>
-    <string name="query">Мини Настроения Запрос</string>
-    <string name="contribute">Способствовать</string>
-    <string name="very_happy">Очень счастлив</string>
-    <string name="neutral">нейтральный</string>
+    <string name="query">Mini Moods запрос</string>
+    <string name="contribute">Внести вклад</string>
+    <string name="very_happy">Очень счастливый</string>
+    <string name="neutral">Нейтральный</string>
     <string name="very_sad">Очень грустный</string>
     <string name="sad">Грустный</string>
     <string name="happy">Счастливый</string>
     <string name="settings">Настройки</string>
-    <string name="yes">да</string>
+    <string name="yes">Да</string>
     <string name="no">Нет</string>
-    <string name="send_crash_reports">Отправить отчеты о сбоях</string>
-    <string name="crash_report_prompt">Mini Настроение опирается на информацию из любых вопросов, которые вы испытываете, чтобы улучшить приложение. Вы хотите помочь, отправив анонимную статистику ДТП?</string>
+    <string name="send_crash_reports">Отправлять отчеты об ошибках</string>
+    <string name="crash_report_prompt">Mini Moods использует информацию о любых проблемах приложения, с которыми вы сталкиваетесь, для его улучшения. Хотите помочь, отправляя анонимную статистику сбоев?</string>
     <string name="theme">Тема</string>
-    <string name="system_default">Системные установки по умолчанию</string>
-    <string name="light">Свет</string>
-    <string name="dark">Темный</string>
+    <string name="system_default">Системные настройки</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
 </resources>
