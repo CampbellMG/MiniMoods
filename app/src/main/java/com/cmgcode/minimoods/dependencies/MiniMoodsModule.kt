@@ -3,7 +3,12 @@ package com.cmgcode.minimoods.dependencies
 import android.content.Context
 import com.cmgcode.minimoods.data.MoodDao
 import com.cmgcode.minimoods.data.MoodDatabase
+import com.cmgcode.minimoods.data.MoodRepository
+import com.cmgcode.minimoods.data.MoodRepositoryImpl
+import com.cmgcode.minimoods.data.PreferenceDao
+import com.cmgcode.minimoods.data.PreferenceDaoImpl
 import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import com.cmgcode.minimoods.handlers.error.SentryErrorHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,10 +20,10 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class MiniMoodsModule {
     @Provides
-    fun providesErrorHandler(): ErrorHandler = ErrorHandler
+    fun providesErrorHandler(): ErrorHandler = SentryErrorHandler
 
     @Provides
-    fun providesDispatchers(): CoroutineDispatchers = CoroutineDispatchers
+    fun providesDispatchers(): CoroutineDispatchers = CoroutineDispatchers()
 
     @Provides
     fun providesMoodDao(database: MoodDatabase): MoodDao = database.getMoodDao()
@@ -26,4 +31,10 @@ class MiniMoodsModule {
     @Provides
     fun providesMoodDatabase(@ApplicationContext context: Context): MoodDatabase =
         MoodDatabase.getInstance(context)
+
+    @Provides
+    fun provideMoodRepositoryImpl(impl: MoodRepositoryImpl): MoodRepository = impl
+
+    @Provides
+    fun providePreferencesDao(impl: PreferenceDaoImpl): PreferenceDao = impl
 }

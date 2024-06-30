@@ -42,7 +42,7 @@ class MiniMoodsWidgetProvider : AppWidgetProvider() {
         val view = getRemoteView(context)
 
         if (mood != -1) {
-            viewModel.addMood(mood)
+            viewModel.toggleMood(mood)
             updateColors(view, context, mood)
 
             AppWidgetManager

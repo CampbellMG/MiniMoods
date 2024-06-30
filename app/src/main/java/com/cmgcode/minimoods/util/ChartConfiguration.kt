@@ -48,4 +48,5 @@ object ChartConfiguration {
         }
     }
 
+    private fun Mood.getInvertedMood() = 5 - mood + 1
 }

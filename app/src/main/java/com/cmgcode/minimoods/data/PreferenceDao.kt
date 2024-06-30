@@ -6,12 +6,16 @@ import com.cmgcode.minimoods.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+interface PreferenceDao {
+    var shouldReportCrashes: Boolean?
+}
 
-class PreferenceDao @Inject constructor(@ApplicationContext context: Context) {
+
+class PreferenceDaoImpl @Inject constructor(@ApplicationContext context: Context) : PreferenceDao {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val loggingKey = context.getString(R.string.key_should_log_crashes)
 
-    var shouldReportCrashes: Boolean?
+    override var shouldReportCrashes: Boolean?
         get() {
             if (!preferences.contains(loggingKey)) {
                 return null

@@ -1,9 +1,40 @@
 package com.cmgcode.minimoods.util
 
-import java.util.*
-import java.util.Calendar.*
+import java.util.Calendar
+import java.util.Calendar.DAY_OF_MONTH
+import java.util.Calendar.DAY_OF_YEAR
+import java.util.Calendar.HOUR_OF_DAY
+import java.util.Calendar.MILLISECOND
+import java.util.Calendar.MINUTE
+import java.util.Calendar.MONTH
+import java.util.Calendar.SECOND
+import java.util.Calendar.YEAR
+import java.util.Calendar.getInstance
+import java.util.Date
 
 object DateHelpers {
+    fun getFirstDayOfPreviousMonth(date: Date): Date {
+        val firstDayOfLastMonth = date
+            .toCalendar()
+            .apply {
+                add(MONTH, -1)
+                set(DAY_OF_MONTH, getActualMinimum(DAY_OF_MONTH))
+            }
+
+        return firstDayOfLastMonth.time
+    }
+
+    fun getFirstDayOfNextMonth(date: Date): Date {
+        val firstDayOfLastMonth = date
+            .toCalendar()
+            .apply {
+                add(MONTH, 1)
+                set(DAY_OF_MONTH, getActualMinimum(DAY_OF_MONTH))
+            }
+
+        return firstDayOfLastMonth.time
+    }
+
     fun getMonthRange(date: Date): Pair<Long, Long> {
         val start = getInstance()
             .apply {

@@ -12,8 +12,6 @@ import com.cmgcode.minimoods.handlers.error.ErrorHandler
 import com.cmgcode.minimoods.util.DateHelpers.isSameDay
 import com.cmgcode.minimoods.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
@@ -37,20 +35,23 @@ class MoodViewModel @Inject constructor(
             ?.mood
     }
 
-    fun addMood(moodScore: Int) {
+    fun toggleMood(moodScore: Int) {
         val date = selectedDate.value ?: Date()
-        val mood = Mood(date, moodScore)
 
-        viewModelScope.launch(dispatchers.io) {
-            repo.addMood(mood)
+        viewModelScope.launch {
+            if (currentMood.value == moodScore) {
+                repo.removeMood(date)
+            } else {
+                repo.addMood(Mood(date, moodScore))
+            }
         }
     }
 
     fun export() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch {
             val moods = repo.getAllMoods()
             val data = moods.joinToString("\n") { "${it.date},${it.mood}" }
-            viewModelScope.launch(Dispatchers.Main) { exportEvent.value = Event(data) }
+            viewModelScope.launch(dispatchers.main) { exportEvent.value = Event(data) }
         }
     }
 

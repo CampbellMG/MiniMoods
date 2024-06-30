@@ -201,13 +201,11 @@
                             app:pagesColor="@color/colorCard"
                             app:headerColor="@color/colorCard"
                             app:headerLabelColor="@color/colorIcon"
-                            app:todayLabelColor="@color/colorCard"
+                            app:todayLabelColor="@color/colorIcon"
                             app:daysLabelsColor="@color/colorIcon"
                             app:abbreviationsBarColor="@color/colorCard"
                             app:abbreviationsLabelsColor="@color/colorIcon"
-                            app:anotherMonthsDaysLabelsColor="@color/colorDisabled"
-                            app:previousButtonSrc="@null"
-                            app:forwardButtonSrc="@null"/>
+                            app:anotherMonthsDaysLabelsColor="@color/colorDisabled"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
