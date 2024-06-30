@@ -20,7 +20,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class MiniMoodsModule {
     @Provides
-    fun providesErrorHandler(): ErrorHandler = SentryErrorHandler
+    fun providesErrorHandler(prefs: PreferenceDao): ErrorHandler = SentryErrorHandler(prefs)
 
     @Provides
     fun providesDispatchers(): CoroutineDispatchers = CoroutineDispatchers()
