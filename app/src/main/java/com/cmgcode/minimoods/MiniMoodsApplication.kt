@@ -1,17 +1,18 @@
 package com.cmgcode.minimoods
 
 import android.app.Application
-import com.cmgcode.minimoods.dependencies.AppContainer
-import com.cmgcode.minimoods.dependencies.AppModule
+import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
+@HiltAndroidApp
 class MiniMoodsApplication : Application() {
+    @Inject
+    lateinit var errorHandler: ErrorHandler
+
     override fun onCreate() {
         super.onCreate()
 
-        module = AppContainer(applicationContext)
-    }
-
-    companion object {
-        lateinit var module: AppModule
+        errorHandler.init()
     }
 }

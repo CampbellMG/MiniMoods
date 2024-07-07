@@ -1,59 +1,64 @@
 package com.cmgcode.minimoods.moods
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.cmgcode.minimoods.data.Mood
-import com.cmgcode.minimoods.data.MoodData
-import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import com.cmgcode.minimoods.data.MoodRepository
+import com.cmgcode.minimoods.data.PreferenceDao
+import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
 import com.cmgcode.minimoods.util.DateHelpers.isSameDay
 import com.cmgcode.minimoods.util.Event
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Date
+import javax.inject.Inject
 
-class MoodViewModel(
-    private val repo: MoodData,
-    private val errorHandler: ErrorHandler,
-    private val IODispatcher: CoroutineDispatcher = Dispatchers.IO
+@HiltViewModel
+class MoodViewModel @Inject constructor(
+    private val repo: MoodRepository,
+    private val preferences: PreferenceDao,
+    private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     val exportEvent = MutableLiveData<Event<String>?>()
     val selectedDate = MutableLiveData(Date())
-    val shouldReportCrashes = MutableLiveData(repo.shouldReportCrashes)
+    val shouldReportCrashes = preferences.shouldReportCrashes.asLiveData()
 
-    val moods = switchMap(selectedDate) { repo.getMoodsForMonth(it) }
+    val moods = selectedDate.switchMap { repo.getMoodsForMonth(it) }
 
-    val currentMood = map(moods) { monthMoods ->
+    val currentMood = moods.map { monthMoods ->
         monthMoods
             .firstOrNull { mood -> selectedDate.value?.let { mood.date.isSameDay(it) } == true }
             ?.mood
     }
 
-    fun addMood(moodScore: Int) {
+    fun toggleMood(moodScore: Int) {
         val date = selectedDate.value ?: Date()
-        val mood = Mood(date, moodScore)
 
-        viewModelScope.launch(IODispatcher) {
-            repo.addMood(mood)
+        viewModelScope.launch {
+            if (currentMood.value == moodScore) {
+                repo.removeMood(date)
+            } else {
+                repo.addMood(Mood(date, moodScore))
+            }
         }
     }
 
     fun export() {
-        viewModelScope.launch(IODispatcher) {
+        viewModelScope.launch {
             val moods = repo.getAllMoods()
             val data = moods.joinToString("\n") { "${it.date},${it.mood}" }
-            viewModelScope.launch(Dispatchers.Main) { exportEvent.value = Event(data) }
+            viewModelScope.launch(dispatchers.main) { exportEvent.value = Event(data) }
         }
     }
 
     fun updateCrashReportingPreference(shouldReportCrashes: Boolean?) {
-        this.shouldReportCrashes.value = shouldReportCrashes
-        repo.shouldReportCrashes = shouldReportCrashes
-
-        errorHandler.updateCrashReportingPreference(shouldReportCrashes ?: false)
+        viewModelScope.launch {
+            preferences.updateCrashReporting(shouldReportCrashes)
+        }
     }
 }

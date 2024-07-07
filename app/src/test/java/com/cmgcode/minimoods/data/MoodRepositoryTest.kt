@@ -1,83 +1,101 @@
 package com.cmgcode.minimoods.data
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
+import com.cmgcode.minimoods.fakes.FakeMoodDao
+import com.cmgcode.minimoods.util.DateHelpers
+import com.cmgcode.minimoods.util.DateHelpers.atStartOfDay
+import com.cmgcode.minimoods.util.DateHelpers.toCalendar
+import com.cmgcode.minimoods.util.TestCoroutineDispatchers
+import com.cmgcode.minimoods.util.mood
 import com.google.common.truth.Truth.assertThat
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
-import org.junit.Before
+import kotlinx.coroutines.test.runTest
+import org.junit.Rule
 import org.junit.Test
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class MoodRepositoryTest {
-    private lateinit var moodData: MoodDao
-    private lateinit var preferenceDao: PreferenceDao
-    private lateinit var repository: MoodRepository
 
-    @Before
-    fun setUp() {
-        moodData = mockk(relaxed = true)
-        preferenceDao = mockk(relaxed = true)
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
 
-        repository = MoodRepository(moodData, preferenceDao)
+    @Test
+    fun `WHEN adding mood EXPECT mood added with time at start of day`() = runTest {
+        // GIVEN
+        val moodDao = FakeMoodDao()
+        val repo = moodRepository(moodDao = moodDao)
+        val mood = mood(date = Date(), mood = 1)
+
+        // WHEN
+        repo.addMood(mood)
+
+        // THEN
+        val startOfDay = mood.date.toCalendar().atStartOfDay().time
+        assertThat(moodDao.moods).hasSize(1)
+        assertThat(moodDao.moods.first()).isEqualTo(mood.copy(date = startOfDay))
     }
 
     @Test
-    fun when_RetrievingMoodsForMonth_Expect_StartAndEndDateForMonth() {
-        val start = Calendar.getInstance()
-            .apply {
-                set(Calendar.DAY_OF_MONTH, getActualMinimum(Calendar.DAY_OF_MONTH))
+    fun `WHEN retrieving mood EXPECT dao data`() = runTest {
+        // GIVEN
+        val moods = mutableListOf(mood(date = Date(), mood = 1))
+        val moodDao = FakeMoodDao(moods)
+        val repo = moodRepository(moodDao = moodDao)
 
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-            .time.time
+        // WHEN
+        val result = repo.getAllMoods()
 
-        val end = Calendar.getInstance()
-            .apply {
-                set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH))
-
-                set(Calendar.HOUR_OF_DAY, 23)
-                set(Calendar.MINUTE, 59)
-                set(Calendar.SECOND, 59)
-                set(Calendar.MILLISECOND, 999)
-            }
-            .time.time
-
-        repository.getMoodsForMonth(Date())
-
-        verify { moodData.getMoodsBetween(start, end) }
+        // THEN
+        assertThat(result).isEqualTo(moods)
     }
 
     @Test
-    fun when_AddingMood_Expect_NoTimeOnlyDate() {
+    fun `WHEN retrieving moods for month EXPECT moods in range`() {
+        // GIVEN
         val date = Date()
-        val mood = Mood(date, 1)
+        val (start, end) = DateHelpers.getMonthRange(date)
+        val moods = listOf(
+            mood(date = Date(start - 1)),
+            mood(date = Date(start)),
+            mood(date = Date(start + 1)),
+            mood(date = Date(end - 1)),
+            mood(date = Date(end)),
+            mood(date = Date(end + 1)),
+        )
 
-        repository.addMood(mood)
+        val moodDao = FakeMoodDao(moods.toMutableList())
+        val repo = moodRepository(moodDao = moodDao)
 
-        val time = Calendar.getInstance()
-            .apply {
-                time = date
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
+        // WHEN
+        val result = repo.getMoodsForMonth(date)
+
+        // THEN
+        assertThat(result.value).isEqualTo(moods.subList(1, 5))
+    }
+
+    @Test
+    fun `WHEN removing mood EXPECT mood removed`() = runTest {
+        // GIVEN
+        val date = Calendar.getInstance()
+            .apply { time = Date() }
+            .atStartOfDay()
             .time
 
-        verify { moodData.addMood(Mood(time, 1)) }
+        val moodDao = FakeMoodDao(mutableListOf(mood(date = date)))
+        val repo = moodRepository(moodDao = moodDao)
+
+        // WHEN
+        repo.removeMood(date)
+
+        // THEN
+        assertThat(moodDao.moods).isEmpty()
     }
 
-    @Test
-    fun when_EditingOrRetrievingShouldLog_Expect_VariableMatchesDao() {
-        every { preferenceDao.shouldReportCrashes } returns true
-
-        assertThat(repository.shouldReportCrashes).isTrue()
-
-        repository.shouldReportCrashes = false
-
-        verify { preferenceDao.shouldReportCrashes = false }
+    private fun moodRepository(
+        moodDao: MoodDao = FakeMoodDao(),
+        dispatchers: CoroutineDispatchers = TestCoroutineDispatchers()
+    ): MoodRepository {
+        return MoodRepositoryImpl(moodDao, dispatchers)
     }
 }

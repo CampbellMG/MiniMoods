@@ -3,9 +3,11 @@ package com.cmgcode.minimoods.moods
 import android.appwidget.AppWidgetManager
 import android.content.ClipData
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.content.FileProvider
@@ -13,7 +15,6 @@ import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import com.applandeo.materialcalendarview.CalendarDay
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.cmgcode.minimoods.MiniMoodsApplication.Companion.module
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.data.Mood
@@ -25,17 +26,18 @@ import com.cmgcode.minimoods.util.DarkModePreferenceWatcher
 import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.toCalendar
 import com.cmgcode.minimoods.util.Event
-import com.cmgcode.minimoods.util.ViewModelFactory.Companion.viewModelBuilder
 import com.cmgcode.minimoods.widget.MiniMoodsWidgetProvider
 import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.*
+import java.util.Date
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: MoodViewModel by viewModelBuilder(module.moodViewModelFactory)
+    private val viewModel: MoodViewModel by viewModels()
     private val darkModePreferenceWatcher by lazy {
         DarkModePreferenceWatcher(this)
     }
@@ -100,20 +102,35 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureCalendar() {
         val date = viewModel.selectedDate.value ?: return
-        val range = DateHelpers.getMonthRange(date)
-        val from = Calendar.getInstance().apply { timeInMillis = range.first }
-        val to = Calendar.getInstance().apply { timeInMillis = range.second }
-
         binding.calendar.apply {
-            setMinimumDate(from)
-            setMaximumDate(to)
             setDate(date.toCalendar())
-            setSwipeEnabled(false)
             setOnDayClickListener(object : OnDayClickListener {
                 override fun onDayClick(eventDay: EventDay) {
                     viewModel.selectedDate.value = eventDay.calendar.time
                 }
             })
+
+            AppCompatResources.getDrawable(context, R.drawable.ic_right)
+                ?.apply { setTint(getColor(context, R.color.colorIcon)) }
+                ?.also { setForwardButtonImage(it) }
+
+            AppCompatResources.getDrawable(context, R.drawable.ic_left)
+                ?.apply { setTint(getColor(context, R.color.colorIcon)) }
+                ?.also { setPreviousButtonImage(it) }
+
+            setSwipeEnabled(false)
+
+            this.findViewById<View>(R.id.previousButton).setOnClickListener {
+                viewModel.selectedDate.value?.let {
+                    viewModel.selectedDate.value = DateHelpers.getFirstDayOfPreviousMonth(it)
+                }
+            }
+
+            this.findViewById<View>(R.id.forwardButton).setOnClickListener {
+                viewModel.selectedDate.value?.let {
+                    viewModel.selectedDate.value = DateHelpers.getFirstDayOfNextMonth(it)
+                }
+            }
         }
     }
 
@@ -121,11 +138,7 @@ class MainActivity : AppCompatActivity() {
         val days = moods.map { mood ->
             CalendarDay(mood.date.toCalendar()).also { day ->
                 day.backgroundDrawable = getDrawable(this, R.drawable.calendar_event)
-                    ?.also {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            it.setTint(getColor(this, mood.getMoodColor()))
-                        }
-                    }
+                    ?.also { it.setTint(getColor(this, mood.getMoodColor())) }
             }
         }
 
@@ -170,5 +183,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun openAbout() {
         startActivity(Intent(this, AboutActivity::class.java))
+    }
+
+    private fun Mood.getMoodColor() = when (mood) {
+        1 -> R.color.colorMood1
+        2 -> R.color.colorMood2
+        3 -> R.color.colorMood3
+        4 -> R.color.colorMood4
+        5 -> R.color.colorMood5
+        else -> R.color.colorBackground
     }
 }

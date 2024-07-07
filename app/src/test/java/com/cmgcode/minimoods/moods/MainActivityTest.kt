@@ -8,32 +8,47 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.matcher.ViewMatchers.*
-import com.cmgcode.minimoods.MiniMoodsApplication
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.about.AboutActivity
-import com.cmgcode.minimoods.mock.MockContainer
+import com.cmgcode.minimoods.fakes.FakeMoodRepository
+import com.cmgcode.minimoods.fakes.FakePreferencesDao
 import com.cmgcode.minimoods.util.DateHelpers.isToday
 import com.cmgcode.minimoods.util.getTestValue
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.HiltTestApplication
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import javax.inject.Inject
 
+
+@HiltAndroidTest
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [29])
+@Config(sdk = [29], application = HiltTestApplication::class)
 class MainActivityTest {
 
-    private lateinit var container: MockContainer
+    @get:Rule
+    val hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    lateinit var repository: FakeMoodRepository
+
+    @Inject
+    lateinit var preferences: FakePreferencesDao
 
     @Before
     fun setUp() {
-        container = MockContainer()
-
-        MiniMoodsApplication.module = container
+        hiltRule.inject()
 
         launch(MainActivity::class.java)
 
@@ -46,43 +61,60 @@ class MainActivityTest {
     }
 
     @Test
-    fun when_PressingMood_Expect_MoodAddedToDatabase() {
+    fun when_PressingMood_Expect_MoodAddedToDatabase() = runTest {
+        // WHEN
         onView(withId(R.id.mood_1)).perform(click())
 
-        val mood = container.repository.moods.getTestValue().first()
+        // THEN
+        val mood = repository.getAllMoods().first()
 
         assertThat(mood.date.isToday()).isTrue()
         assertThat(mood.mood).isEqualTo(1)
     }
 
     @Test
-    fun when_PressingSettings_Expect_NavigationToAbout() {
-        onView(withId(R.id.settings)).perform(scrollTo(), click())
+    fun when_PressingMoodTwice_Expect_MoodAddedAndRemovedFromDatabase() {
+        // WHEN
+        onView(withId(R.id.mood_1)).perform(click())
+        onView(withId(R.id.mood_1)).perform(click())
 
+        // THEN
+        assertThat(repository.moods.getTestValue()).isEmpty()
+    }
+
+    @Test
+    fun when_PressingSettings_Expect_NavigationToAbout() {
+        // WHEN
+        onView(withId(R.id.settings))
+            .perform(scrollTo(), click())
+
+        // THEN
         intended(hasComponent(AboutActivity::class.java.name))
     }
 
     @Test
     fun when_NoCrashReportingPreference_Expect_Card() {
-        onView(withText(R.string.crash_report_prompt)).check(matches(isDisplayed()))
+        // WHEN
+        onView(withText(R.string.crash_report_prompt))
+            // THEN
+            .check(matches(isDisplayed()))
     }
 
     @Test
-    fun when_PressingYesToCrashReporting_Expect_ShouldLogSetToTrue() {
-        onView(withText(R.string.crash_report_prompt)).check(matches(isDisplayed()))
-
+    fun when_PressingYesToCrashReporting_Expect_ShouldLogSetToTrue() = runTest {
+        // WHEN
         onView(withText(R.string.yes)).perform(click())
 
-        assertThat(container.repository.shouldReportCrashes).isTrue()
+        // THEN
+        assertThat(preferences.shouldReportCrashes.value).isTrue()
     }
 
     @Test
-    fun when_PressingNoToCrashReporting_Expect_ShouldLogSetToFalse() {
-        onView(withText(R.string.crash_report_prompt)).check(matches(isDisplayed()))
-
+    fun when_PressingNoToCrashReporting_Expect_ShouldLogSetToFalse() = runTest {
+        // WHEN
         onView(withText(R.string.no)).perform(click())
 
-        assertThat(container.repository.shouldReportCrashes).isFalse()
+        // THEN
+        assertThat(preferences.shouldReportCrashes.value).isFalse()
     }
-
 }

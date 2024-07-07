@@ -9,11 +9,14 @@ import androidx.room.Query
 @Dao
 interface MoodDao {
     @Query("SELECT * FROM mood")
-    fun getAll(): List<Mood>
+    suspend fun getAll(): List<Mood>
 
     @Query("SELECT * FROM mood WHERE date BETWEEN :from AND :to")
     fun getMoodsBetween(from: Long, to: Long): LiveData<List<Mood>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addMood(mood: Mood)
+    suspend fun addMood(mood: Mood)
+
+    @Query("DELETE FROM mood WHERE date = :date")
+    suspend fun deleteMood(date: Long)
 }

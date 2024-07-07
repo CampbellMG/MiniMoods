@@ -1,20 +1,23 @@
-package com.cmgcode.minimoods.mock
+package com.cmgcode.minimoods.fakes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cmgcode.minimoods.data.Mood
-import com.cmgcode.minimoods.data.MoodData
+import com.cmgcode.minimoods.data.MoodRepository
 import com.cmgcode.minimoods.util.DateHelpers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MockRepository : MoodData {
+@Singleton
+class FakeMoodRepository @Inject constructor() : MoodRepository {
+
     val moods = FilteredLiveMoods()
-    override var shouldReportCrashes: Boolean? = null
 
-    override fun addMood(mood: Mood) {
+    override suspend fun addMood(mood: Mood) {
         moods.value = moods.value
             ?.toMutableList()
             ?.apply {
@@ -23,8 +26,8 @@ class MockRepository : MoodData {
             }
     }
 
-    override fun getAllMoods(): List<Mood> {
-        return moods.value.orEmpty()
+    override suspend fun getAllMoods(): List<Mood> {
+        return moods.rawMoods.orEmpty()
     }
 
     override fun getMoodsForMonth(date: Date): LiveData<List<Mood>> {
@@ -32,8 +35,12 @@ class MockRepository : MoodData {
         return moods
     }
 
+    override suspend fun removeMood(date: Date) {
+        moods.value = moods.value?.filter { it.date != date }
+    }
+
     class FilteredLiveMoods : MutableLiveData<List<Mood>>() {
-        private var rawMoods: List<Mood>? = emptyList()
+        var rawMoods: List<Mood>? = emptyList()
 
         var date: Date? = null
             set(value) {

@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.cmgcode.minimoods">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-            android:name=".MiniMoodsApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:fullBackupContent="@xml/backup_descriptor">
+        android:name=".MiniMoodsApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
 
-        <meta-data android:name="io.sentry.auto-init" android:value="false" />
+        <meta-data
+            android:name="io.sentry.auto-init"
+            android:value="false" />
 
-        <activity android:name=".moods.MainActivity">
+        <activity
+            android:name=".moods.MainActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-                android:name=".about.AboutActivity"
-                android:theme="@style/AboutTheme"/>
+            android:name=".about.AboutActivity"
+            android:theme="@style/AboutTheme" />
 
         <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="com.cmgcode.minimoods"
-                android:grantUriPermissions="true"
-                android:exported="false">
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.cmgcode.minimoods"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/filepaths"/>
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
         </provider>
 
         <receiver
-                android:name=".widget.MiniMoodsWidgetProvider"
-                android:icon="@drawable/ic_launcher_foreground"
-                android:label="@string/app_name">
+            android:name=".widget.MiniMoodsWidgetProvider"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
-                    android:name="android.appwidget.provider"
-                    android:resource="@xml/widget_info"/>
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
         </receiver>
 
     </application>

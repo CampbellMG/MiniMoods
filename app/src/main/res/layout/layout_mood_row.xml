@@ -37,7 +37,7 @@
                     android:padding="8dp"
                     android:layout_marginEnd="8dp"
                     app:tint="@{viewModel.currentMood == 5 ? @color/colorMood5 : @color/colorDisabled}"
-                    android:onClick="@{() -> viewModel.addMood(5)}"
+                    android:onClick="@{() -> viewModel.toggleMood(5)}"
                     android:background="@drawable/background_mood_button"
                     android:contentDescription="@string/very_sad"/>
         </LinearLayout>
@@ -59,7 +59,7 @@
                     android:padding="8dp"
                     android:layout_marginEnd="8dp"
                     app:tint="@{viewModel.currentMood == 4 ? @color/colorMood4 : @color/colorDisabled}"
-                    android:onClick="@{() -> viewModel.addMood(4)}"
+                    android:onClick="@{() -> viewModel.toggleMood(4)}"
                     android:background="@drawable/background_mood_button"
                     android:contentDescription="@string/sad"/>
         </LinearLayout>
@@ -81,7 +81,7 @@
                     android:padding="8dp"
                     android:layout_marginEnd="8dp"
                     app:tint="@{viewModel.currentMood == 3 ? @color/colorMood3 : @color/colorDisabled}"
-                    android:onClick="@{() -> viewModel.addMood(3)}"
+                    android:onClick="@{() -> viewModel.toggleMood(3)}"
                     android:background="@drawable/background_mood_button"
                     android:contentDescription="@string/neutral"/>
         </LinearLayout>
@@ -103,7 +103,7 @@
                     android:padding="8dp"
                     android:layout_marginEnd="8dp"
                     app:tint="@{viewModel.currentMood == 2 ? @color/colorMood2 : @color/colorDisabled}"
-                    android:onClick="@{() -> viewModel.addMood(2)}"
+                    android:onClick="@{() -> viewModel.toggleMood(2)}"
                     android:background="@drawable/background_mood_button"
                     android:contentDescription="@string/happy"/>
         </LinearLayout>
@@ -127,7 +127,7 @@
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_mood_1"
                     app:tint="@{viewModel.currentMood == 1 ? @color/colorMood1 : @color/colorDisabled}"
-                    android:onClick="@{() -> viewModel.addMood(1)}"
+                    android:onClick="@{() -> viewModel.toggleMood(1)}"
                     android:contentDescription="@string/very_happy"/>
 
         </LinearLayout>
