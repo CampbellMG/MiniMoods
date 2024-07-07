@@ -10,8 +10,6 @@ import java.util.Date
 import javax.inject.Inject
 
 interface MoodRepository {
-    var shouldReportCrashes: Boolean?
-
     suspend fun addMood(mood: Mood)
     suspend fun getAllMoods(): List<Mood>
     fun getMoodsForMonth(date: Date): LiveData<List<Mood>>
@@ -20,15 +18,8 @@ interface MoodRepository {
 
 class MoodRepositoryImpl @Inject constructor(
     private val moods: MoodDao,
-    private val preferences: PreferenceDao,
     private val dispatchers: CoroutineDispatchers
 ) : MoodRepository {
-
-    override var shouldReportCrashes: Boolean?
-        get() = preferences.shouldReportCrashes
-        set(value) {
-            preferences.shouldReportCrashes = value
-        }
 
     override suspend fun addMood(mood: Mood) {
         val startOfDate = Calendar.getInstance()

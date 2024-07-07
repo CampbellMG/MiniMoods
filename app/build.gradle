@@ -97,7 +97,7 @@ dependencies {
     implementation 'nl.dionsegijn:konfetti:1.2.1'
 
     // Support
-    implementation 'io.sentry:sentry-android:6.25.0'
+    implementation 'io.sentry:sentry-android:7.11.0'
 
     // Testing
     testImplementation "androidx.test.ext:junit:$junit_version"

@@ -2,25 +2,35 @@ package com.cmgcode.minimoods.handlers.error
 
 import com.cmgcode.minimoods.BuildConfig
 import com.cmgcode.minimoods.data.PreferenceDao
+import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
 import io.sentry.Sentry
+import io.sentry.SentryOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 interface ErrorHandler {
-    fun updateCrashReportingPreference(shouldLog: Boolean)
     fun init()
 }
 
-class SentryErrorHandler(private val prefs: PreferenceDao) : ErrorHandler {
+class SentryErrorHandler(
+    private val prefs: PreferenceDao,
+    dispatchers: CoroutineDispatchers
+) : ErrorHandler {
+    private val scope = CoroutineScope(dispatchers.io)
+
     override fun init() {
-        if (prefs.shouldReportCrashes == true) {
-            Sentry.init {
-                it.dsn = BuildConfig.SENTRY_DSN
+        scope.launch {
+            prefs.shouldReportCrashes.collect { shouldReportCrashes ->
+                enableSentry(shouldReportCrashes)
             }
         }
     }
 
-    override fun updateCrashReportingPreference(shouldLog: Boolean) {
+    private fun enableSentry(shouldReportCrashes: Boolean?) {
         Sentry.init {
-            it.dsn = if (shouldLog) BuildConfig.SENTRY_DSN else ""
+            it.dsn = BuildConfig.SENTRY_DSN
+            it.isEnabled = shouldReportCrashes ?: false
+            it.beforeSend = SentryOptions.BeforeSendCallback { event, _ -> event }
         }
     }
 }

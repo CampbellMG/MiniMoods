@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -13,7 +14,6 @@ import androidx.core.content.FileProvider
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import com.applandeo.materialcalendarview.CalendarDay
 import com.applandeo.materialcalendarview.EventDay
-import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.about.AboutActivity
@@ -118,22 +118,19 @@ class MainActivity : AppCompatActivity() {
                 ?.apply { setTint(getColor(context, R.color.colorIcon)) }
                 ?.also { setPreviousButtonImage(it) }
 
-            setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
-                override fun onChange() {
-                    viewModel.selectedDate.value?.let {
-                        viewModel.selectedDate.value = DateHelpers.getFirstDayOfPreviousMonth(it)
-                    }
-                }
-            })
+            setSwipeEnabled(false)
 
-            setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
-                override fun onChange() {
-                    viewModel.selectedDate.value?.let {
-                        viewModel.selectedDate.value = DateHelpers.getFirstDayOfNextMonth(it)
-                    }
+            this.findViewById<View>(R.id.previousButton).setOnClickListener {
+                viewModel.selectedDate.value?.let {
+                    viewModel.selectedDate.value = DateHelpers.getFirstDayOfPreviousMonth(it)
                 }
-            })
+            }
 
+            this.findViewById<View>(R.id.forwardButton).setOnClickListener {
+                viewModel.selectedDate.value?.let {
+                    viewModel.selectedDate.value = DateHelpers.getFirstDayOfNextMonth(it)
+                }
+            }
         }
     }
 
@@ -187,6 +184,7 @@ class MainActivity : AppCompatActivity() {
     private fun openAbout() {
         startActivity(Intent(this, AboutActivity::class.java))
     }
+
     private fun Mood.getMoodColor() = when (mood) {
         1 -> R.color.colorMood1
         2 -> R.color.colorMood2

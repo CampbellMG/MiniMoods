@@ -2,13 +2,14 @@ package com.cmgcode.minimoods.moods
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.data.MoodRepository
+import com.cmgcode.minimoods.data.PreferenceDao
 import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
-import com.cmgcode.minimoods.handlers.error.ErrorHandler
 import com.cmgcode.minimoods.util.DateHelpers.isSameDay
 import com.cmgcode.minimoods.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,13 +20,13 @@ import javax.inject.Inject
 @HiltViewModel
 class MoodViewModel @Inject constructor(
     private val repo: MoodRepository,
-    private val errorHandler: ErrorHandler,
+    private val preferences: PreferenceDao,
     private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     val exportEvent = MutableLiveData<Event<String>?>()
     val selectedDate = MutableLiveData(Date())
-    val shouldReportCrashes = MutableLiveData(repo.shouldReportCrashes)
+    val shouldReportCrashes = preferences.shouldReportCrashes.asLiveData()
 
     val moods = selectedDate.switchMap { repo.getMoodsForMonth(it) }
 
@@ -56,9 +57,8 @@ class MoodViewModel @Inject constructor(
     }
 
     fun updateCrashReportingPreference(shouldReportCrashes: Boolean?) {
-        this.shouldReportCrashes.value = shouldReportCrashes
-        repo.shouldReportCrashes = shouldReportCrashes
-
-        errorHandler.updateCrashReportingPreference(shouldReportCrashes ?: false)
+        viewModelScope.launch {
+            preferences.updateCrashReporting(shouldReportCrashes)
+        }
     }
 }

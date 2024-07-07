@@ -240,7 +240,7 @@
                             android:adjustViewBounds="true"
                             android:scaleType="centerInside"
                             app:srcCompat="@drawable/ic_export_excel"
-                            android:tint="@color/colorIcon"
+                            app:tint="@color/colorIcon"
                             android:onClick="@{() -> viewModel.export()}"
                             android:contentDescription="@string/export"/>
 
@@ -254,7 +254,7 @@
                             android:adjustViewBounds="true"
                             android:scaleType="centerInside"
                             app:srcCompat="@drawable/ic_settings"
-                            android:tint="@color/colorIcon"
+                            app:tint="@color/colorIcon"
                             android:contentDescription="@string/settings"/>
 
                 </LinearLayout>
