@@ -3,7 +3,6 @@ package com.cmgcode.minimoods.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
 import com.cmgcode.minimoods.fakes.FakeMoodDao
-import com.cmgcode.minimoods.fakes.FakePreferencesDao
 import com.cmgcode.minimoods.util.DateHelpers
 import com.cmgcode.minimoods.util.DateHelpers.atStartOfDay
 import com.cmgcode.minimoods.util.DateHelpers.toCalendar
@@ -20,25 +19,6 @@ class MoodRepositoryTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
-
-    @Test
-    fun `WHEN updating or retrieving crash reporting preference EXPECT value matches`() {
-        // GIVEN
-        val preferences = FakePreferencesDao()
-        val repo = moodRepository(preferences = preferences)
-
-        // WHEN
-        preferences.shouldReportCrashes = true
-
-        // THEN
-        assertThat(repo.shouldReportCrashes).isTrue()
-
-        // WHEN
-        repo.shouldReportCrashes = false
-
-        // THEN
-        assertThat(repo.shouldReportCrashes).isFalse()
-    }
 
     @Test
     fun `WHEN adding mood EXPECT mood added with time at start of day`() = runTest {
@@ -59,7 +39,7 @@ class MoodRepositoryTest {
     @Test
     fun `WHEN retrieving mood EXPECT dao data`() = runTest {
         // GIVEN
-        val moods = mutableListOf( mood(date = Date(), mood = 1))
+        val moods = mutableListOf(mood(date = Date(), mood = 1))
         val moodDao = FakeMoodDao(moods)
         val repo = moodRepository(moodDao = moodDao)
 
@@ -114,9 +94,8 @@ class MoodRepositoryTest {
 
     private fun moodRepository(
         moodDao: MoodDao = FakeMoodDao(),
-        preferences: PreferenceDao = FakePreferencesDao(),
         dispatchers: CoroutineDispatchers = TestCoroutineDispatchers()
     ): MoodRepository {
-        return MoodRepositoryImpl(moodDao, preferences, dispatchers)
+        return MoodRepositoryImpl(moodDao, dispatchers)
     }
 }

@@ -3,10 +3,10 @@ package com.cmgcode.minimoods.moods
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.data.MoodRepository
+import com.cmgcode.minimoods.data.PreferenceDao
 import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
-import com.cmgcode.minimoods.fakes.FakeErrorHandler
 import com.cmgcode.minimoods.fakes.FakeMoodRepository
-import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import com.cmgcode.minimoods.fakes.FakePreferencesDao
 import com.cmgcode.minimoods.util.MainCoroutineRule
 import com.cmgcode.minimoods.util.UnconfinedCoroutineDispatchers
 import com.cmgcode.minimoods.util.getTestValue
@@ -129,54 +129,41 @@ class MoodViewModelTest {
     }
 
     @Test
-    fun `WHEN setting should log EXPECT repo to update`() {
+    fun `WHEN setting should log EXPECT preferences to update`() {
         // GIVEN
-        val repository = FakeMoodRepository()
-        val viewModel = moodViewModel(repo = repository)
-
-        // WHEN
-        viewModel.updateCrashReportingPreference(true)
-
-        // THEN
-        assertThat(repository.shouldReportCrashes).isTrue()
-    }
-
-    @Test
-    fun `WHEN setting should log EXPECT error handler to update`() {
-        // GIVEN
-        val errorHandler = FakeErrorHandler()
-        val viewModel = moodViewModel(errorHandler = errorHandler)
+        val preferences = FakePreferencesDao()
+        val viewModel = moodViewModel(preferences = preferences)
 
         // WHEN
         viewModel.updateCrashReportingPreference(false)
 
         // THEN
-        assertThat(errorHandler.shouldLog).isFalse()
+        assertThat(preferences.shouldReportCrashes.value).isFalse()
     }
 
     @Test
-    fun `WHEN setting should log to null EXPECT error handler to not log`() {
+    fun `WHEN setting should log to null EXPECT preferences to not log`() {
         // GIVEN
-        val errorHandler = FakeErrorHandler()
-        val viewModel = moodViewModel(errorHandler = errorHandler)
+        val preferences = FakePreferencesDao()
+        val viewModel = moodViewModel(preferences = preferences)
 
         // WHEN
         viewModel.updateCrashReportingPreference(true)
 
         // THEN
-        assertThat(errorHandler.shouldLog).isTrue()
+        assertThat(preferences.shouldReportCrashes.value).isTrue()
 
         // WHEN
         viewModel.updateCrashReportingPreference(null)
 
         // THEN
-        assertThat(errorHandler.shouldLog).isFalse()
+        assertThat(preferences.shouldReportCrashes.value).isNull()
     }
 
 
     private fun moodViewModel(
         repo: MoodRepository = FakeMoodRepository(),
-        errorHandler: ErrorHandler = FakeErrorHandler(),
+        preferences: PreferenceDao = FakePreferencesDao(),
         dispatchers: CoroutineDispatchers = UnconfinedCoroutineDispatchers()
-    ) = MoodViewModel(repo, errorHandler, dispatchers)
+    ) = MoodViewModel(repo, preferences, dispatchers)
 }

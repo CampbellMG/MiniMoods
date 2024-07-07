@@ -1,6 +1,7 @@
 package com.cmgcode.minimoods.fakes
 
 import com.cmgcode.minimoods.data.MoodRepository
+import com.cmgcode.minimoods.data.PreferenceDao
 import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
 import com.cmgcode.minimoods.dependencies.MiniMoodsModule
 import com.cmgcode.minimoods.handlers.error.ErrorHandler
@@ -18,8 +19,13 @@ import dagger.hilt.testing.TestInstallIn
 object FakeMiniMoodsModule {
     @Provides
     fun provideMoodRepositoryImpl(impl: FakeMoodRepository): MoodRepository = impl
+
     @Provides
-    fun providesErrorHandler(): ErrorHandler = FakeErrorHandler()
+    fun providesPreferences(impl: FakePreferencesDao): PreferenceDao = impl
+
+    @Provides
+    fun providesErrorHandler(impl: FakeErrorHandler): ErrorHandler = impl
+
 
     @Provides
     fun providesDispatchers(): CoroutineDispatchers = UnconfinedCoroutineDispatchers()

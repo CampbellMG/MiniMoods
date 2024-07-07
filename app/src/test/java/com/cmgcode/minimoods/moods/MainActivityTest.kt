@@ -14,6 +14,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.cmgcode.minimoods.R
 import com.cmgcode.minimoods.about.AboutActivity
 import com.cmgcode.minimoods.fakes.FakeMoodRepository
+import com.cmgcode.minimoods.fakes.FakePreferencesDao
 import com.cmgcode.minimoods.util.DateHelpers.isToday
 import com.cmgcode.minimoods.util.getTestValue
 import com.google.common.truth.Truth.assertThat
@@ -41,6 +42,9 @@ class MainActivityTest {
 
     @Inject
     lateinit var repository: FakeMoodRepository
+
+    @Inject
+    lateinit var preferences: FakePreferencesDao
 
     @Before
     fun setUp() {
@@ -97,20 +101,20 @@ class MainActivityTest {
     }
 
     @Test
-    fun when_PressingYesToCrashReporting_Expect_ShouldLogSetToTrue() {
+    fun when_PressingYesToCrashReporting_Expect_ShouldLogSetToTrue() = runTest {
         // WHEN
         onView(withText(R.string.yes)).perform(click())
 
         // THEN
-        assertThat(repository.shouldReportCrashes).isTrue()
+        assertThat(preferences.shouldReportCrashes.value).isTrue()
     }
 
     @Test
-    fun when_PressingNoToCrashReporting_Expect_ShouldLogSetToFalse() {
+    fun when_PressingNoToCrashReporting_Expect_ShouldLogSetToFalse() = runTest {
         // WHEN
         onView(withText(R.string.no)).perform(click())
 
         // THEN
-        assertThat(repository.shouldReportCrashes).isFalse()
+        assertThat(preferences.shouldReportCrashes.value).isFalse()
     }
 }

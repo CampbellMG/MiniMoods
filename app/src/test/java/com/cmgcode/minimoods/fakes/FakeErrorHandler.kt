@@ -1,12 +1,10 @@
 package com.cmgcode.minimoods.fakes
 
 import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FakeErrorHandler(
-    var shouldLog: Boolean? = null
-) : ErrorHandler {
-
-    override fun updateCrashReportingPreference(shouldLog: Boolean) {
-        this.shouldLog = shouldLog
-    }
+@Singleton
+class FakeErrorHandler @Inject constructor() : ErrorHandler {
+    override fun init() = Unit
 }

@@ -16,7 +16,6 @@ import javax.inject.Singleton
 class FakeMoodRepository @Inject constructor() : MoodRepository {
 
     val moods = FilteredLiveMoods()
-    override var shouldReportCrashes: Boolean? = null
 
     override suspend fun addMood(mood: Mood) {
         moods.value = moods.value
