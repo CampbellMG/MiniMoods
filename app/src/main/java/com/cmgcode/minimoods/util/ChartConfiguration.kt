@@ -19,13 +19,15 @@ object ChartConfiguration {
     }
 
     fun LineChart.addMoods(moods: List<Mood>, lineColor: Int) {
-        val moodData = moods.map { Entry(it.date.time.toFloat(), it.getInvertedMood().toFloat()) }
+        val moodData = moods.map { Entry(it.date.toFloat(), it.getInvertedMood().toFloat()) }
         val data = LineDataSet(moodData, "").apply { configureLineDataSet(lineColor) }
 
         this.data = LineData(data).apply { setDrawValues(false) }
 
         animateY(600, Easing.EaseInBack)
     }
+
+    private fun Mood.getInvertedMood() = 5 - mood + 1
 
     private fun LineDataSet.configureLineDataSet(lineColor: Int) {
         setDrawCircles(false)

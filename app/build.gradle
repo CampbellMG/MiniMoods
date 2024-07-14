@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'io.github.takahirom.roborazzi'
 }
 
 android {
@@ -19,8 +20,15 @@ android {
         versionName "1.0.0"
 
         vectorDrawables.useSupportLibrary true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.cmgcode.minimoods.util.MiniMoodsTestRunner"
+
         buildConfigField "String", "SENTRY_DSN", apiKeys['SENTRY_DSN']
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                compilerArgumentProviders(new RoomSchemaArgProvider(new File(projectDir, "schemas")))
+            }
+        }
     }
 
     buildTypes {
@@ -37,17 +45,23 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
+        
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
 
     buildFeatures {
-        dataBinding true
         compose true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.8'
+    }
+
+    sourceSets {
+        // Adds exported schema location as test app assets.
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 }
 
@@ -57,28 +71,37 @@ dependencies {
     def room_version = "2.5.2"
     def espresso_version = "3.5.1"
     def junit_version = "1.1.5"
+    def hilt_version = "2.44"
+    def nav_version = "2.7.1"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // Core
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'androidx.activity:activity-compose:1.7.2'
 
     // Compose
     def composeBom = platform('androidx.compose:compose-bom:2023.08.00')
     implementation composeBom
     androidTestImplementation composeBom
 
+    implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation 'androidx.compose.material3:material3'
 
     // Compose - Android Studio Preview support
     implementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.compose.ui:ui-tooling'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
 
     // Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Jetpack
     kapt "androidx.room:room-compiler:$room_version"
@@ -100,6 +123,8 @@ dependencies {
     implementation 'io.sentry:sentry-android:6.25.0'
 
     // Testing
+    kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     testImplementation "androidx.test.ext:junit:$junit_version"
     testImplementation "androidx.arch.core:core-testing:$arch_version"
     testImplementation "androidx.room:room-testing:$room_version"
@@ -110,13 +135,21 @@ dependencies {
     testImplementation "io.mockk:mockk:1.13.3"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
     testImplementation 'org.robolectric:robolectric:4.10'
+    testImplementation 'app.cash.turbine:turbine:1.0.0'
+    testImplementation 'io.github.takahirom.roborazzi:roborazzi:1.6.0-alpha-3'
+    testImplementation 'io.github.takahirom.roborazzi:roborazzi-compose:1.6.0-alpha-3'
 
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+    androidTestImplementation "com.google.truth:truth:1.1"
 
     // Compose - UI Tests
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    testImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
 
 }
 
@@ -128,4 +161,22 @@ static def loadApiKeys() {
     Properties properties = new Properties()
     properties.load(new FileInputStream(new File("secrets.properties")))
     return properties
+}
+
+class RoomSchemaArgProvider implements CommandLineArgumentProvider {
+
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    File schemaDir
+
+    RoomSchemaArgProvider(File schemaDir) {
+        this.schemaDir = schemaDir
+    }
+
+    @Override
+    Iterable<String> asArguments() {
+        // Note: If you're using KSP, change the line below to return
+        // ["room.schemaLocation=${schemaDir.path}".toString()].
+        return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
+    }
 }

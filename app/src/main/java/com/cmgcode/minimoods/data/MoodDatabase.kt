@@ -8,7 +8,10 @@ import androidx.room.TypeConverters
 import com.cmgcode.minimoods.util.Constants.DATABASE_NAME
 import com.cmgcode.minimoods.util.DataConverters
 
-@Database(entities = [Mood::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Mood::class],
+    version = 2
+)
 @TypeConverters(DataConverters::class)
 abstract class MoodDatabase : RoomDatabase() {
     abstract fun getMoodDao(): MoodDao
@@ -22,6 +25,8 @@ abstract class MoodDatabase : RoomDatabase() {
             }
 
         private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context, MoodDatabase::class.java, DATABASE_NAME).build()
+            Room.databaseBuilder(context, MoodDatabase::class.java, DATABASE_NAME)
+                .addMigrations(MIGRATION_1_2)
+                .build()
     }
 }

@@ -9,9 +9,11 @@ import android.content.Intent
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat.getColor
 import com.cmgcode.minimoods.R
-import com.cmgcode.minimoods.moods.MoodViewModel
+import com.cmgcode.minimoods.data.Mood
+import com.cmgcode.minimoods.features.moods.MoodViewModel
 import com.cmgcode.minimoods.util.Constants.ACTION_SET_MOOD
 import com.cmgcode.minimoods.util.Constants.RC_SET_MOOD
+import java.util.Date
 import javax.inject.Inject
 
 class MiniMoodsWidgetProvider : AppWidgetProvider() {
@@ -42,7 +44,8 @@ class MiniMoodsWidgetProvider : AppWidgetProvider() {
         val view = getRemoteView(context)
 
         if (mood != -1) {
-            viewModel.addMood(mood)
+            // TODO
+//            viewModel.addOrUpdatedMood(Mood(Date(), mood))
             updateColors(view, context, mood)
 
             AppWidgetManager
@@ -64,7 +67,7 @@ class MiniMoodsWidgetProvider : AppWidgetProvider() {
     }
 
     private fun updateColors(view: RemoteViews, context: Context, mood: Int? = null) {
-        val currentMood = mood ?: viewModel.currentMood.value ?: return
+        val currentMood = mood ?: return
 
 
         moodButtons.forEachIndexed { i, res ->

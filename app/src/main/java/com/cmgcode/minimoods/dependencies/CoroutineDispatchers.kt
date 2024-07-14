@@ -3,6 +3,7 @@ package com.cmgcode.minimoods.dependencies
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-object CoroutineDispatchers {
-    val io: CoroutineDispatcher = Dispatchers.IO
-}
+data class CoroutineDispatchers(
+    val io: CoroutineDispatcher = Dispatchers.IO,
+    val main: CoroutineDispatcher = Dispatchers.Main
+)

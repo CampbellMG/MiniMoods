@@ -16,7 +16,7 @@
             android:value="false" />
 
         <activity
-            android:name=".moods.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +26,10 @@
         </activity>
 
         <activity
-            android:name=".about.AboutActivity"
+            android:name=".features.about.AboutActivity"
             android:theme="@style/AboutTheme" />
+
+        <activity android:name=".features.moods.DateSelectionActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

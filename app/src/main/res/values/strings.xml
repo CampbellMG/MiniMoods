@@ -25,6 +25,13 @@
     <string name="version" translatable="false">%s (%s)</string>
     <string name="key_should_log_crashes" translatable="false">key_should_log_crashes</string>
     <string name="key_theme" translatable="false">key_theme</string>
+    <string name="today">Today</string>
+    <string name="this_week">This week</string>
+    <string name="this_month">This month</string>
+    <string name="custom">Custom</string>
+    <string name="date_range">Date Range</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
     <string-array name="theme_entries">
         <item>@string/system_default</item>
