@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 interface MoodRepository {
     suspend fun addMood(mood: Mood)
+    suspend fun getMoodForDay(date: Date): Mood?
     suspend fun getAllMoods(): List<Mood>
     fun getMoodsForMonth(date: Date): LiveData<List<Mood>>
     suspend fun removeMood(date: Date)
@@ -22,15 +23,19 @@ class MoodRepositoryImpl @Inject constructor(
 ) : MoodRepository {
 
     override suspend fun addMood(mood: Mood) {
-        val startOfDate = Calendar.getInstance()
-            .apply { time = mood.date }
-            .atStartOfDay()
-            .time
-
+        val startOfDate = startOfDay(mood.date)
         val validatedMood = mood.copy(date = startOfDate)
 
         withContext(dispatchers.io) {
             moods.addMood(validatedMood)
+        }
+    }
+
+    override suspend fun getMoodForDay(date: Date): Mood? {
+        val startOfDate = startOfDay(date)
+
+        return withContext(dispatchers.io) {
+            moods.getMood(startOfDate.time)
         }
     }
 
@@ -46,13 +51,17 @@ class MoodRepositoryImpl @Inject constructor(
     }
 
     override suspend fun removeMood(date: Date) {
-        val startOfDate = Calendar.getInstance()
-            .apply { time = date }
-            .atStartOfDay()
-            .time
+        val startOfDate = startOfDay(date)
 
         return withContext(dispatchers.io) {
             moods.deleteMood(date = startOfDate.time)
         }
+    }
+
+    private fun startOfDay(date: Date): Date {
+        return Calendar.getInstance()
+            .apply { time = date }
+            .atStartOfDay()
+            .time
     }
 }

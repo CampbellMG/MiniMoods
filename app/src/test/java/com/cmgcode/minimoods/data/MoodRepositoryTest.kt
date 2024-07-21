@@ -37,7 +37,7 @@ class MoodRepositoryTest {
     }
 
     @Test
-    fun `WHEN retrieving mood EXPECT dao data`() = runTest {
+    fun `WHEN retrieving moods EXPECT dao data`() = runTest {
         // GIVEN
         val moods = mutableListOf(mood(date = Date(), mood = 1))
         val moodDao = FakeMoodDao(moods)
@@ -48,6 +48,26 @@ class MoodRepositoryTest {
 
         // THEN
         assertThat(result).isEqualTo(moods)
+    }
+
+    @Test
+    fun `WHEN retrieving mood for day EXPECT dao data`() = runTest {
+        // GIVEN
+        val date = Calendar.getInstance()
+            .apply { time = Date() }
+            .atStartOfDay()
+            .time
+
+        val dateOnSameDay = Date()
+        val mood = mood(date = date, mood = 1)
+        val moodDao = FakeMoodDao(mutableListOf(mood))
+        val repo = moodRepository(moodDao = moodDao)
+
+        // WHEN
+        val result = repo.getMoodForDay(dateOnSameDay)
+
+        // THEN
+        assertThat(result).isEqualTo(mood)
     }
 
     @Test

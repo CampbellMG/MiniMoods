@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.cmgcode.minimoods.data.Mood
 import com.cmgcode.minimoods.data.MoodRepository
 import com.cmgcode.minimoods.data.PreferenceDao
 import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
@@ -21,9 +20,9 @@ import javax.inject.Inject
 class MoodViewModel @Inject constructor(
     private val repo: MoodRepository,
     private val preferences: PreferenceDao,
+    private val selectMood: MoodSelectionUseCase,
     private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
-
     val exportEvent = MutableLiveData<Event<String>?>()
     val selectedDate = MutableLiveData(Date())
     val shouldReportCrashes = preferences.shouldReportCrashes.asLiveData()
@@ -40,11 +39,7 @@ class MoodViewModel @Inject constructor(
         val date = selectedDate.value ?: Date()
 
         viewModelScope.launch {
-            if (currentMood.value == moodScore) {
-                repo.removeMood(date)
-            } else {
-                repo.addMood(Mood(date, moodScore))
-            }
+            selectMood(date, moodScore)
         }
     }
 

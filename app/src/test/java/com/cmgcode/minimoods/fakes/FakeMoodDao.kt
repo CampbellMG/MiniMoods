@@ -24,4 +24,8 @@ class FakeMoodDao(
     override suspend fun deleteMood(date: Long) {
         moods.removeAll { it.date.time == date }
     }
+
+    override suspend fun getMood(date: Long): Mood? {
+        return moods.firstOrNull { it.date.time == date }
+    }
 }

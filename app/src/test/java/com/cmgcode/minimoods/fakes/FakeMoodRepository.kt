@@ -39,6 +39,10 @@ class FakeMoodRepository @Inject constructor() : MoodRepository {
         moods.value = moods.value?.filter { it.date != date }
     }
 
+    override suspend fun getMoodForDay(date: Date): Mood? {
+        return moods.value?.firstOrNull { it.date.time == date.time }
+    }
+
     class FilteredLiveMoods : MutableLiveData<List<Mood>>() {
         var rawMoods: List<Mood>? = emptyList()
 

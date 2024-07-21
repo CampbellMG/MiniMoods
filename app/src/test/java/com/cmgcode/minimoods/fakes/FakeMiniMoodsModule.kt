@@ -5,6 +5,8 @@ import com.cmgcode.minimoods.data.PreferenceDao
 import com.cmgcode.minimoods.dependencies.CoroutineDispatchers
 import com.cmgcode.minimoods.dependencies.MiniMoodsModule
 import com.cmgcode.minimoods.handlers.error.ErrorHandler
+import com.cmgcode.minimoods.moods.MoodSelectionUseCase
+import com.cmgcode.minimoods.moods.MoodSelectionUseCaseImpl
 import com.cmgcode.minimoods.util.UnconfinedCoroutineDispatchers
 import dagger.Module
 import dagger.Provides
@@ -26,7 +28,9 @@ object FakeMiniMoodsModule {
     @Provides
     fun providesErrorHandler(impl: FakeErrorHandler): ErrorHandler = impl
 
-
     @Provides
     fun providesDispatchers(): CoroutineDispatchers = UnconfinedCoroutineDispatchers()
+
+    @Provides
+    fun providesMoodSelectionUseCase(impl: MoodSelectionUseCaseImpl): MoodSelectionUseCase = impl
 }
