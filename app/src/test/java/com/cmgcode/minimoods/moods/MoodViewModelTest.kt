@@ -74,18 +74,21 @@ class MoodViewModelTest {
         // GIVEN
         val score = 1
         val repository = FakeMoodRepository()
-        val viewModel = moodViewModel(repo = repository)
+        var resultantMood: Mood? = null
         val tomorrow = getInstance().apply { add(DATE, 1) }.time
+        val viewModel = moodViewModel(
+            repo = repository,
+            selectMood = { date, mood -> resultantMood = Mood(date, mood) }
+        )
 
         // WHEN
         viewModel.selectedDate.value = tomorrow
         viewModel.toggleMood(score)
 
         // THEN
-        val mood = repository.moods.getTestValue().first()
-
-        assertThat(mood.date).isEqualTo(tomorrow)
-        assertThat(mood.mood).isEqualTo(score)
+        assertThat(resultantMood).isNotNull()
+        assertThat(resultantMood?.date).isEqualTo(tomorrow)
+        assertThat(resultantMood?.mood).isEqualTo(score)
     }
 
     @Test
@@ -164,6 +167,7 @@ class MoodViewModelTest {
     private fun moodViewModel(
         repo: MoodRepository = FakeMoodRepository(),
         preferences: PreferenceDao = FakePreferencesDao(),
+        selectMood: MoodSelectionUseCase = MoodSelectionUseCase { _, _ -> },
         dispatchers: CoroutineDispatchers = UnconfinedCoroutineDispatchers()
-    ) = MoodViewModel(repo, preferences, dispatchers)
+    ) = MoodViewModel(repo, preferences, selectMood, dispatchers)
 }

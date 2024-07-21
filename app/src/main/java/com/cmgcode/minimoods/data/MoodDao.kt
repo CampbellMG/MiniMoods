@@ -11,6 +11,9 @@ interface MoodDao {
     @Query("SELECT * FROM mood")
     suspend fun getAll(): List<Mood>
 
+    @Query("SELECT * FROM mood WHERE date = :date")
+    suspend fun getMood(date: Long): Mood?
+
     @Query("SELECT * FROM mood WHERE date BETWEEN :from AND :to")
     fun getMoodsBetween(from: Long, to: Long): LiveData<List<Mood>>
 

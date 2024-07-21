@@ -9,11 +9,14 @@ import com.cmgcode.minimoods.data.PreferenceDao
 import com.cmgcode.minimoods.data.PreferenceDaoImpl
 import com.cmgcode.minimoods.handlers.error.ErrorHandler
 import com.cmgcode.minimoods.handlers.error.SentryErrorHandler
+import com.cmgcode.minimoods.moods.MoodSelectionUseCase
+import com.cmgcode.minimoods.moods.MoodSelectionUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 @Module
@@ -29,6 +32,7 @@ class MiniMoodsModule {
     fun providesDispatchers(): CoroutineDispatchers = CoroutineDispatchers()
 
     @Provides
+    @Singleton
     fun providesMoodDao(database: MoodDatabase): MoodDao = database.getMoodDao()
 
     @Provides
@@ -40,4 +44,7 @@ class MiniMoodsModule {
 
     @Provides
     fun providePreferencesDao(impl: PreferenceDaoImpl): PreferenceDao = impl
+
+    @Provides
+    fun providesMoodSelectionUseCase(impl: MoodSelectionUseCaseImpl): MoodSelectionUseCase = impl
 }
